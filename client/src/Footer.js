@@ -5,11 +5,13 @@ import {
   Link
 } from "react-router-dom";
 
+//agregar css pointer-events: none css. 
+
 class Footer extends Component {
   render() { return ( <div>
       <Link to="/"> 
         <img src={homeIcon}  className="footer-icon" alt="homeIcon"/> 
-      </Link>
+      </Link> 
   </div>
   );
 }
