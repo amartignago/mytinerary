@@ -6,7 +6,8 @@ const db = require("./db")
 const citiesRouter = require('./city.routes')
 
 
-//app.use(cors());
+
+app.use(cors());
 app.use(citiesRouter);
 app.listen(port)
 

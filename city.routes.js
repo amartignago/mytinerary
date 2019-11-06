@@ -5,6 +5,5 @@ const router = require ('express').Router()
 
 router.get("/cities", cityController.getCities);
 
-module.exports = {
-    router
-}
+module.exports = router
+

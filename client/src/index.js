@@ -3,8 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { composeWithDevTools } from 'redux-devtools-extension'
 
-
+const store = createStore(reducer, composeWithDevTools(
+    applyMiddleware(...middleware)
+  ));
 
 ReactDOM.render(<App/>, document.getElementById('root'));
 
