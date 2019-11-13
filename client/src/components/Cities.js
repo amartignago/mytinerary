@@ -38,9 +38,9 @@ render() {
     return ( <div className="container">
     <NavBar/>
     <h1>Cities Page</h1>
-    <ul className='nonStyleUl'>
-     <CitiesList cities = {cities}/>
-    </ul>
+    <div>
+     <FilterForm cities = {cities}/>
+     </div>
 </div>
  )}
 

@@ -1,6 +1,6 @@
 import {REQUEST_CITIES, RECEIVE_CITIES} from '../actions/citiesActions'
 
-function citiesReducer(
+function citiesReducer( //mepa que esta queda igual
   state = {
     isFetching: false,
     didInvalidate: false,
@@ -26,17 +26,6 @@ function citiesReducer(
 
 export default citiesReducer;
 
-// const citiesReducer = (state = initState, action) => {
-//     switch (action.type) {
-//       case 'GET_CITIES':
-//         console.log("hola")
-//         return state
-        
-//       default:
-//         return state
-//     }
-//   }
-//   export default citiesReducer
 
 
   //return 

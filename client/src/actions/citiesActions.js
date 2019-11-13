@@ -19,10 +19,11 @@ export const RECEIVE_CITIES = 'RECEIVE_CITIES'
 export function receiveCities(json) {
     return {
         type: RECEIVE_CITIES,
-        payloadCities: json.map(city=>city), //ver bien esto
+        payloadCities: json.map(city=>city), //aca iria mi filtro?
         receivedAt: Date.now()
     }
 }
+
 
 export function fetchCities () {
     return function (dispatch) {       
