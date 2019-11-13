@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import './Navbar.css';
+import '../styles/Navbar.css';
 import { slide as Menu } from 'react-burger-menu';
 import Dropdown from 'react-bootstrap/Dropdown'
-import NavLogo from './empty_user.png'
+import NavLogo from '../images/empty_user.png'
 
 
 

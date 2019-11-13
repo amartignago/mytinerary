@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import circledRight from './circled-right-2.png';
-import './App.css';
+import circledRight from '../images/circled-right-2.png';
+import '../styles/App.css';
 import {
   Link
 } from "react-router-dom";

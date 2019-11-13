@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import Login from './Login.js';
-import Cities from './Cities.js';
-import Account from './Account.js';
-import Home from './Home.js';
-import './App.css';
+import Login from '../components/Login.js';
+import Cities from '../components/Cities.js';
+import Account from '../components/Account.js';
+import Home from '../components/Home.js';
+import '../styles/App.css';
 import {
   BrowserRouter as Router,
   Switch,

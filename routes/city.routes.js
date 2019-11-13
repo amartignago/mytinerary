@@ -1,4 +1,4 @@
-const cityController = require ('./city.controller')
+const cityController = require ('../controllers/city.controller')
 const router = require ('express').Router()
 
 //aca van a quedar declaradas todas las rutas, las saco de server

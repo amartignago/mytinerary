@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import homeIcon from './homeIcon.png';
-import './App.css';
+import homeIcon from '../images/homeIcon.png';
+import '../styles/App.css';
 import {
   Link
 } from "react-router-dom";

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import logo from './MYtineraryLogo.png'; //se podria obviar este import y poner el link en src?
-import './App.css';
+import logo from '../images/MYtineraryLogo.png'; //se podria obviar este import y poner el link en src?
+import '../styles/App.css';
 
 
 

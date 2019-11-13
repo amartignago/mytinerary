@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow , mount} from 'enzyme';
-import BrowsingMenu from './BrowsingMenu.js';
+import BrowsingMenu from './components/BrowsingMenu.js';
 
 
 describe('BrowsingMenu', () => {

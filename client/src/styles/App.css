@@ -50,3 +50,6 @@
   height: 15vh;
 }
 
+.nonStyleUl {
+    list-style-type: none;
+}
