@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 
  const CitiesList = ({cities}) =>
-   cities.map(city => <li key={city.name}>{city.name}</li>)
+   cities.map(city => <li key={city.id}>{city.name}</li>)
  
 export default CitiesList

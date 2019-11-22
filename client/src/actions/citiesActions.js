@@ -3,11 +3,6 @@ import fetch from 'cross-fetch'
 const CitiesApi = 'http://localhost:5000/cities'
 
 
-// export const getCities = payload=>({
-//         type: 'GET_CITIES' ,
-//         payload:payload
-// } ) 
-
 export const REQUEST_CITIES ='REQUEST_CITIES'    
 export function requestCities() {
     return {

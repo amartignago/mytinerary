@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import NavBar from './NavBar.js'
-import CitiesList from './CitiesList.js'
 import '../styles/App.css'
 import {connect} from 'react-redux';
 import FilterForm from './FilterForm.js';
@@ -22,15 +21,6 @@ class Cities extends Component {
        this.props.dispatch(fetchCities())
        .then(() => console.log('hola, funciono!'))
     }
-
-// render() { return ( <div className="container">
-//     <NavBar/>
-//     <h1>Cities Page</h1>
-//     <ul className='nonStyleUl'>
-//    // <FilterForm cities={this.state.cities}/>
-//     </ul>
-// </div>
-// )}
 
 render() { 
     const cities = this.props.cities

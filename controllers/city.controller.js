@@ -6,8 +6,17 @@ const getCities = (req,res) =>{
     .find({}).then((cities)=>{res.json(cities).status(204)}
     )};
 
+const getCityItinerary = (req,res) =>{
+    let cityRequested = req.params._id;  
+    City
+    .findOne({_id:cityRequested})
+    .populate("itineraries") //modelo del que trae los docs
+    .then((city)=>{res.send(city.itineraries).status(204)}
+    )};    
+
 module.exports = {
-    getCities
+    getCities,
+    getCityItinerary
 }
 
 

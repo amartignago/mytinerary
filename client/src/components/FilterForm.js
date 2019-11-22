@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import {
+  Link
+} from "react-router-dom";
 
 class FilterForm extends Component {
     constructor(props) {
@@ -15,8 +18,6 @@ class FilterForm extends Component {
         citiesFilter: e.target.value,
         visibleCities: this.props.cities.filter(city => city.name.toLowerCase().startsWith(e.target.value.toLowerCase())), //  
       })
-      
-    //  this.props.onChange(event.target.value) // onChange seria filtercities de citiesfilter, event.target.value el valor con el cual va a filtrar
     }
     
     render() {
@@ -27,16 +28,17 @@ class FilterForm extends Component {
             value={this.state.citiesFilter} //cuando este valor cambia ejecuta handlechange)
             onChange={this.handleChange}/> 
         </div>
-        <ul className='nonStyleUl'>
-           {this.state.visibleCities.map(city => <li key={city.name}>{city.name}</li>)}
-        </ul>
+          <ul className='nonStyleUl'>
+            {this.state.visibleCities.map(city => 
+            <Link to={"/cities/"+ city._id}>
+              <li key={city._id}>{city.name}</li>
+            </Link>
+            )}
+          </ul>
         </div>
         )
     }
   }
-  
-  FilterForm.propTypes= {
-    onChange: PropTypes.func.isRequired
-  }
+
 
   export default FilterForm

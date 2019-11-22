@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Login from '../components/Login.js';
 import Cities from '../components/Cities.js';
+import Itineraries from '../components/Itineraries.js';
 import Account from '../components/Account.js';
 import Home from '../components/Home.js';
 import '../styles/App.css';
@@ -12,18 +13,11 @@ import {
  
 const routes = () => (
     <Switch>
-    <Route exact path="/">
-    <Home />
-    </Route>
-    <Route path="/account">
-    <Account />
-    </Route>
-    <Route path="/login">
-    <Login />
-    </Route>
-    <Route path="/cities">
-    <Cities />
-    </Route>
+      <Route exact path="/" component = {Home} />
+      <Route path="/account" component = {Account} />
+      <Route path="/login" component = {Login} />
+      <Route exact path="/cities" component = {Cities} />
+      <Route path="/cities/:cityID" component = {Itineraries} />
     </Switch>
 )
 export default routes;

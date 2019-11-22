@@ -1,31 +1,30 @@
-import {REQUEST_CITIES, RECEIVE_CITIES} from '../actions/citiesActions'
+import {REQUEST_ITINERARIES, RECEIVE_ITINERARIES, SELECT_CITY} from '../actions/itinerariesActions'
 
-const initState = {
+const initState= {
   isFetching: false,
   didInvalidate: false,
+  itineraries:[], 
 }
 
-function citiesReducer( //mepa que esta queda igual
-  state = initState,
-  action
+
+function itinerariesReducer(state = initState, action
 ) {
   switch (action.type) {
-    case REQUEST_CITIES:
+    case REQUEST_ITINERARIES:
       return Object.assign({}, state, {
         isFetching: true,
       })
-    case RECEIVE_CITIES:
+    case RECEIVE_ITINERARIES:
       return Object.assign({}, state, {
         isFetching: false,
-        cities: action.payloadCities,
+        itineraries: action.payloadItineraries,
         lastUpdated: action.receivedAt
       })
     default:
       return state
   }
 }
-
-export default citiesReducer;
+export default itinerariesReducer;
 
 
 
