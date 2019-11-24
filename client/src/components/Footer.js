@@ -8,7 +8,7 @@ import {
 //agregar css pointer-events: none css. 
 
 class Footer extends Component {
-  render() { return ( <div>
+  render() { return ( <div className="mx-auto">
       <Link to="/"> 
         <img src={homeIcon}  className="footer-icon" alt="homeIcon"/> 
       </Link> 

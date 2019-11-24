@@ -2,8 +2,8 @@
 .bm-burger-button {
     float:right;
     position: relative;
-    width: 36px;
-    height: 30px;
+    width: 5.5vmin;
+    height: 5.5vmin;
     left: 36px;
     margin-right: 3rem;
   
@@ -20,9 +20,10 @@
   }
   
   /* Position and sizing of clickable cross button */
-  .bm-cross-button {
-    height: 24px;
-    width: 24px;
+  .bm-cross-button
+   {
+    height: 4vmin;
+    width: 4vmin;
   }
   
   /* Color/shape of close button cross */
@@ -69,10 +70,11 @@
 
   .dropdown{
       width: 49%;
+      justify-content: left;
   }
 
   .nav-user {
-    width:45px;
+    width:6.5vmin;
   }
 
   .btn-primary {
@@ -80,3 +82,10 @@
     background-color: #fff !important;
     border-color:  #fff !important;
   }
+
+  .menu-item{
+    color: darkolivegreen;
+    border-color: transparent;
+  }
+
+ 

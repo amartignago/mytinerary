@@ -14,9 +14,32 @@ const getCityItinerary = (req,res) =>{
     .then((city)=>{res.send(city.itineraries).status(204)}
     )};    
 
+const createCity = (req, res) => {
+    console.log(req.body);
+    City.create({
+        nombre: req.body.nombre,
+        pais: req.body.pais
+    })
+    .then((newCity)=>{
+        res.json(newCity).status(204)
+    })
+    .catch((err)=>{
+    res.json(err).status(500)
+})
+}
+
+// const getCitiesImages = (req,res) =>{
+//    res.send("aca va la imagen" + req.params.cityID).status(200)
+//     };
+
+
+
 module.exports = {
     getCities,
-    getCityItinerary
+    getCityItinerary,
+    createCity,
+    // getCitiesImages
+
 }
 
 

@@ -27,7 +27,7 @@ render() {
 
     return ( <div className="container">
     <NavBar/>
-    <h1>Cities Page</h1>
+    <h1 className="h1Title mb-4">Cities Page</h1>
     <div>
      <FilterForm cities = {cities}/>
      </div>
@@ -37,10 +37,10 @@ render() {
 }
 
 
-const mapStateToProps = (state) => { // aca estoy pasando el state del storage como props para ESTE componente
+const mapStateToProps = (state) => { // state del storage como props para ESTE componente
     console.log(state);
     return {
-        cities: state.citiesReducer.cities // aca le digo que va a tener una prop cities que va a ser manejada por X reducer
+        cities: state.citiesReducer.cities // prop cities que va a ser manejada por X reducer
     }
 }
 

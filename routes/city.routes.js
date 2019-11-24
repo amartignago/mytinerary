@@ -5,6 +5,9 @@ const router = require ('express').Router()
 
 router.get("/cities", cityController.getCities);
 router.get("/cities/:_id", cityController.getCityItinerary)
+router.post("/cities/", cityController.createCity)
+// router.get("/cities/images/:cityID?", cityController.getCitiesImages)
+
 
 module.exports = router
 

@@ -9,10 +9,10 @@ class BrowsingMenu extends Component {
   render() { return ( 
       <div>
         <h1>Start Browsing</h1>
-        <div>
-          <img src={circledRight} className="browsing-icon" alt="browsing logo"></img>
-          <div></div>
-          <Link to="/cities">Cities</Link>
+        <div className="container responsiveDiv">
+          <Link to="/cities">
+            <img src={circledRight} className="browsing-icon" alt="browsing logo"></img>
+          </Link>
         </div>
         <div>
           <span>Want to build your own Mytinerary?</span>
