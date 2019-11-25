@@ -8,7 +8,7 @@ const itinerarySchema = new mongoose.Schema({
     duration: Number,
     price: Number,
     hashtag: Array,
-    activities: [{type:mongoose.Schema.Types.ObjectId, ref:'activities'}], //CREAR EL MODELO DE ACTIVIDADES
+    activities: [{type:mongoose.Schema.Types.ObjectId, ref:'activities'}]
 })
 
 

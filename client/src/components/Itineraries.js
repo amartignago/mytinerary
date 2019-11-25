@@ -1,13 +1,11 @@
 import React, {Component, Fragment} from 'react';
 import NavBar from './NavBar.js'
-import ItinerariesList from './ItinerariesList.js'
 import '../styles/App.css'
 import {connect} from 'react-redux';
 import {fetchItineraries} from '../actions/itinerariesActions';
 import PropTypes from 'prop-types';
 import Expand from 'react-expand-animated';
-import Collapse from 'react-bootstrap/Collapse'
-
+import Activities from './Activities.js'
 
 
 class Itineraries extends Component {
@@ -70,16 +68,14 @@ render() {
                         </div>
                     </div>
                 <div className="row col-sm-12 ml-0 pl-0 pr-0 mr-0 d-inline-block container-fluid">
-                    {!this.state.clicked?(
-                         <button id={itinerary._id} className="btn btn-light btn-block" onClick={()=>{this.toggle(itinerary._id)}}>Open</button>
-                    ): //"else"
+                    {/* {!this.state.clicked?( */}
+                    <button id={itinerary._id} className="btn btn-light btn-block" onClick={()=>{this.toggle(itinerary._id)}}>View All</button>
+                    {/* // ): //"else" */}
                     <Expand open={this.state.open==itinerary._id && this.state.clicked==true}>
-                        <div className="itinDetail">
-                            <h3>HOLA</h3>
-                            <button id={itinerary._id} className="btn btn-light btn-block" onClick={()=>{this.toggle('close')}}>Close</button> 
-                        </div>
+                        <Activities itineraries = {itineraries} ></Activities>
+                        <button id={itinerary._id} className="btn btn-light btn-block" onClick={()=>{this.toggle('close')}}>Close</button> 
                     </Expand>
-                    }
+                    {/* } */}
                 </div>
                 </div>
             </li>

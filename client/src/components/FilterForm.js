@@ -4,7 +4,7 @@ import '../styles/App.css'
 import {
   Link
 } from "react-router-dom";
-
+import urlImages from './constants'
 
 
 class FilterForm extends Component {
@@ -36,8 +36,8 @@ class FilterForm extends Component {
             <Link to={"/cities/"+ city._id}>
               <div className="container responsiveDiv mb-4 mt-4">
                 <li key={city._id}>
-                    <img src={city.img} className="img-fluid cityImg" alt=" "/>
-                    <span><h2 className="overlayText">{city.name}</h2></span>
+                  {city.img && <img src={`${urlImages.urlImages}/images/cities/${city.img}`} className="img-fluid cityImg" alt=" "/>}
+                  <span><h2 className="overlayText">{city.name}</h2></span>
                 </li>
               </div>
             </Link>
