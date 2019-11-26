@@ -10,6 +10,7 @@ html {
 .header{
   margin-top: 5%;
   height: 30%;
+  text-align: center;
 
 }
 
@@ -39,7 +40,7 @@ html {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
+  /* text-align: center; */
   justify-content: center;
   font-size: 3.5vmin;
   color: black;
@@ -89,10 +90,15 @@ html {
  border-style: solid;
  border-width: 0.1vmin;
  margin: 0.1vmin 0.1vmin 0.1vmin 0.1vmin;
+ clear: both
 }
 
-.itinText{
+.userText{
   font-size: 2vmin;
+}
+
+.itinText {
+  font-size: 2.5vmin;
 }
 
 .itinDetail {
@@ -100,3 +106,48 @@ html {
   width: 100%;
   left: 0;
 }
+
+.userImg {
+  max-height: 17vmin;
+  max-width: 17vmin
+}
+
+.row.is-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+.row.is-flex > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+* And with max cross-browser enabled.
+* Nobody should ever write this by hand. 
+* Use a preprocesser with autoprefixing.
+*/
+.row.is-flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.row.is-flex > [class*='col-'] {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+
+
+

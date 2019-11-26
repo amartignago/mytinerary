@@ -1,42 +1,48 @@
 import React, {Component, Fragment} from 'react';
-import Carousel from 'react-bootstrap/Carousel'
-import foto from '../images/GaudiLover.png'
+import Carousel from 'react-bootstrap/Carousel';
+import urlImages from './constants';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {fetchActivities} from '../actions/activitiesActions';
 
 class Activities extends Component {
-    render() { return ( <Fragment>
-        <div className="">
-            {/* recibir id de itin como prop */}
-                <Carousel className="mt-5 mb-3">
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src={foto}
-                            alt="First slide"
-                        />
-                        <Carousel.Caption>
-                            <h3>First slide label</h3>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src={foto}
-                            alt="Third slide"
-                        />
-                        <Carousel.Caption>
-                            <h3>Second slide label</h3>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src={foto}
-                            alt="Third slide"
-                        />
-                        <Carousel.Caption>
-                            <h3>Third slide label</h3>
-                        </Carousel.Caption>
-                    </Carousel.Item>
+    constructor(props) {
+        super(props) 
+        this.state = {
+          }
+      };
+      
+    static propTypes = {
+    dispatch: PropTypes.func,
+    };
+
+    componentDidMount() {
+        let id = this.props.itinerary._id;
+        console.log(id);
+        this.props.dispatch(fetchActivities(id))
+       .then(() => console.log('working'))
+    };
+
+
+    render() { 
+        const activities = this.props.activities; 
+        
+        return ( <Fragment>
+        <div className="d-flex mt-2 container h-70">
+            <h4 className="text-center mb-4 itinText font-weight-bold">Activities:</h4>
+            <Carousel className="mt-5 mb-3">
+                {activities.map(activity => 
+                        <Carousel.Item>
+                            <img
+                                className="d-block w-100 itinText"
+                                src={`${urlImages.urlImages}/images/activities/${activity.photo}`}
+                                alt={activity.name}
+                            />
+                            <Carousel.Caption>
+                                <h3 className="text-dark">{activity.name}</h3>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                )}
             </Carousel> 
         </div>
     </Fragment>
@@ -44,4 +50,12 @@ class Activities extends Component {
 }
 }
 
-export default Activities;
+const mapStateToProps = (state) => { 
+    console.log(state);
+    return {
+        itineraries: state.itinerariesReducer.itineraries,
+        activities: state.activitiesReducer.activities
+    }
+}
+
+export default connect(mapStateToProps)(Activities); // 

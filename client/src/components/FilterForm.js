@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
 import '../styles/App.css'
 import {
   Link
@@ -26,12 +25,12 @@ class FilterForm extends Component {
     render() {
       return (<div className="mb-4">
         <div>
-          <label htmlFor="filter" className="mt-1 mr-3 mb-4">Filter by City Name: </label>
+          <label htmlFor="filter" className="mt-1 mr-3 mb-4">Find City by Name: </label>
           <input type="text" id="filter" 
             value={this.state.citiesFilter} //cuando este valor cambia ejecuta handlechange)
             onChange={this.handleChange}/> 
         </div>
-          <ul className='nonStyleUl'>
+          <ul className='nonStyleUl p-0'>
             {this.state.visibleCities.map(city => 
             <Link to={"/cities/"+ city._id}>
               <div className="container responsiveDiv mb-4 mt-4">

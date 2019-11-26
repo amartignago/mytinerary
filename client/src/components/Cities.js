@@ -26,11 +26,13 @@ render() {
     const cities = this.props.cities
 
     return ( <div className="container">
-    <NavBar/>
-    <h1 className="h1Title mb-4">Cities Page</h1>
-    <div>
-     <FilterForm cities = {cities}/>
-     </div>
+        <NavBar/>
+        <div className="text-center">
+            <h1 className="h1Title mb-4">Cities Page</h1>
+            <div>
+            <FilterForm cities = {cities}/>
+            </div>
+        </div>
 </div>
  )}
 

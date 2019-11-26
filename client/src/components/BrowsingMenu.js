@@ -7,7 +7,7 @@ import {
 
 class BrowsingMenu extends Component {
   render() { return ( 
-      <div>
+      <div className="text-center">
         <h1>Start Browsing</h1>
         <div className="container responsiveDiv">
           <Link to="/cities">
@@ -17,10 +17,8 @@ class BrowsingMenu extends Component {
         <div>
           <span>Want to build your own Mytinerary?</span>
         </div>
-        <div className="float-left">
+        <div className="d-flex justify-content-around">
           <Link to="/login">Log in</Link>
-        </div>
-        <div className="float-right">
           <Link to="/Account">Account</Link>
         </div>
       </div>

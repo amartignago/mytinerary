@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import BrowsingMenu from './BrowsingMenu.js';
-import Footer from './Footer.js';
 import Header from './Header.js';
 
 

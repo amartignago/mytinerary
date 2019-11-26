@@ -1,4 +1,4 @@
-import {REQUEST_ITINERARIES, RECEIVE_ITINERARIES, SELECT_CITY} from '../actions/itinerariesActions'
+import {REQUEST_ITINERARIES, RECEIVE_ITINERARIES} from '../actions/itinerariesActions'
 
 const initState= {
   isFetching: false,

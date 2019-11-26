@@ -1,7 +1,5 @@
 import fetch from 'cross-fetch'
 
-const ItinerariesApi = 'http://localhost:5000/cities'
-
 export const REQUEST_ITINERARIES ='REQUEST_ITINERARIES'    
 export function requestItineraries(id) {
     return {
@@ -33,3 +31,5 @@ export function fetchItineraries (id) {
         )
     }
 }
+
+
