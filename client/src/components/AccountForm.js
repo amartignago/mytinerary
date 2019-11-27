@@ -11,13 +11,12 @@ class AccountForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          terms: true,
+          terms: false,
           username:"",
           password:"",
           email:"",
           firstName:"",
-          lastName:"",
-          submitBtn:true
+          lastName:""
 
         };
 
@@ -33,12 +32,31 @@ class AccountForm extends Component {
         [name]: value
       });
     }
+    handleForm(e){
+        if(
+            !this.state.terms ||
+            this.state.username =="" ||
+            this.state.password =="" ||
+            this.state.email =="" ||
+            this.state.firstName =="" ||
+            this.state.lastName =="" 
+        ){
+            e.preventDefault()
+        }
+        e.preventDefault();
+        
+        fetch('somewhere/over/rainbow').then((res)=>{
+            return res.json();
+        }).then((data)=>{
+            console.log(data)
+        })
+    }
   
 
     render() { return ( <div className="text-center">
 
     <h3 className="mb-5">Create Account</h3>
-    <Form className="w-100"> 
+    <Form className="w-100" onSubmit={(e)=>{this.handleForm(e)}}> 
         <Form.Group as={Row} controlId="username" className="inlineForm">
             <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">Username:</span></Form.Label>
             <Col xs={8}>
