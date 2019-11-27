@@ -7,7 +7,7 @@ import NavLogo from '../images/empty_user.png'
 
 
 class NavBar extends Component {
-    render() { return ( <div className="m-4 mt-0">
+    render() { return ( <div className="ml-4 mr-4 mb-4 mt-0 pt-4">
         <Menu right className="bg-light" >
           <a id="home" className="menu-item" href="/">Home</a>
           <a id="about" className="menu-item" href="/cities">Cities</a>
@@ -16,6 +16,10 @@ class NavBar extends Component {
           <Dropdown.Toggle id="dropdown-basic">
             <img src={NavLogo} className= 'nav-user' alt='user menu'></img>
           </Dropdown.Toggle>
+          <Dropdown.Menu>
+            <Dropdown.Item  href="/login">Login</Dropdown.Item>
+            <Dropdown.Item  href="/account">Create Account</Dropdown.Item>
+          </Dropdown.Menu>
         </Dropdown>
       </div>
     )

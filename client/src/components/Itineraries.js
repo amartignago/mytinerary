@@ -19,8 +19,6 @@ class Itineraries extends Component {
         this.state = {
             open:false,
             clicked: false,
-            cities: [],
-            filteredCities: []
         }
     };
     static propTypes = {
@@ -39,25 +37,12 @@ class Itineraries extends Component {
        .then(() => console.log('hola, funciono!'))
     };
 
-    // filterCities = (citiesFilter) => {
-    //     let filteredCities = this.state.cities
-    //     filteredCities = filteredCities.filter((city) => {
-    //       let cityID = city._id
-    //       return cityID.indexOf(
-    //        citiesFilter()) !== -1
-    //     })
-    //     this.setState({
-    //       filteredCities
-    //     })
-    //   }
-
 
 render() { 
     const itineraries = this.props.itineraries
     const activities = this.props.activities
-    // let cityID = this.props.match.params.cityID
-    // const cities = this.props.cities
 
+ 
     return ( <div className="container">
         <NavBar/>
         <Fragment>
@@ -113,9 +98,10 @@ render() {
 const mapStateToProps = (state) => { // aca estoy pasando el state del storage como props para ESTE componente
     console.log(state);
     return {
-        cities:state.citiesReducer.cities,
         itineraries: state.itinerariesReducer.itineraries,
-        activities: state.activitiesReducer.activities 
+        activities: state.activitiesReducer.activities,
+      
+        // cities: state.citiesReducer.cities.map(city => city.indexOf(city._id==this.props.match.params.cityID) )
     }
 }
 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import NavBar from './NavBar.js'
 import '../styles/App.css'
 import {connect} from 'react-redux';
-import FilterForm from './FilterForm.js';
+import CitiesFilter from './CitiesFilter.js';
 import {fetchCities} from '../actions/citiesActions';
 import PropTypes from 'prop-types';
 
@@ -30,7 +30,7 @@ render() {
         <div className="text-center">
             <h1 className="h1Title mb-4">Cities Page</h1>
             <div>
-            <FilterForm cities = {cities}/>
+            <CitiesFilter cities = {cities}/>
             </div>
         </div>
 </div>

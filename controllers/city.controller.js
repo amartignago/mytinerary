@@ -14,6 +14,14 @@ const getCityItinerary = (req,res) =>{
     .then((city)=>{res.send(city.itineraries).status(204)}
     )};    
 
+const getCity = (req,res) =>{
+    let cityRequested = req.params._id;  
+    City
+    .findOne({_id:cityRequested})
+    .then((cities)=>{res.json(cities).status(204)}
+    )};    
+
+
 const createCity = (req, res) => {
     console.log(req.body);
     City.create({
@@ -38,6 +46,7 @@ module.exports = {
     getCities,
     getCityItinerary,
     createCity,
+    getCity
     // getCitiesImages
 
 }

@@ -165,6 +165,13 @@ html {
   flex-direction: column;
 }
 
+.btn-primary {
+  padding: 0px !important;
+  background-color: #ffffff!important;
+  border-color: #ffffff !important;
+}
 
-
+.inlineForm {
+  box-sizing: border-box;
+}
 

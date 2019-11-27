@@ -1,4 +1,4 @@
-import {REQUEST_CITIES, RECEIVE_CITIES} from '../actions/citiesActions'
+import {REQUEST_CITIES, RECEIVE_CITIES, REQUEST_CITY, RECEIVE_CITY} from '../actions/citiesActions'
 
 const initState = {
   isFetching: false,
@@ -13,6 +13,16 @@ function citiesReducer( //mepa que esta queda igual
     case REQUEST_CITIES:
       return Object.assign({}, state, {
         isFetching: true,
+      })
+    case REQUEST_CITY:
+      return Object.assign({}, state, {
+        isFetching: true,
+      })
+    case RECEIVE_CITY:
+      return Object.assign({}, state, {
+        isFetching: false,
+        cities: action.payloadCities,
+        lastUpdated: action.receivedAt
       })
     case RECEIVE_CITIES:
       return Object.assign({}, state, {

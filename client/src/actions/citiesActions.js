@@ -33,3 +33,34 @@ export function fetchCities () {
     }
 }
 
+
+export const REQUEST_CITY ='REQUEST_CITY'    
+export function requestCity(id) {
+    return {
+        type: REQUEST_CITY,
+        id
+    }
+}
+export const RECEIVE_CITY = 'RECEIVE_CITY'
+export function receiveCity(id, json) {
+    return {
+        type: RECEIVE_CITY,
+        id,
+        payloadCity: json.map(city=>city),
+        receivedAt: Date.now()
+    }
+}
+
+export function fetchCity (id) {
+    return dispatch => {       
+        dispatch(requestCity(id))
+        console.log(id);
+        return fetch('http://localhost:5000/city/' + id)
+        .then(
+           cityResponse => { return cityResponse.json()},
+            error => console.log('an error ocurred', error)
+        )
+        .then( json => dispatch(receiveCity(id, json))
+        )
+    }
+}

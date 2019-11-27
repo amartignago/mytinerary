@@ -1,11 +1,21 @@
 import React, {Component} from 'react';
+import AccountForm from './AccountForm';
+import NavBar from './NavBar';
 
 
 
 class Account extends Component {
-    render() { return ( <div>
-        
-        <h1>Account Page</h1>
+    constructor(props) {
+        super(props) 
+        this.state = {
+          }
+      };
+
+   render() { return ( <div className= "w-100 pr-4 pl-4">
+        <NavBar></NavBar>
+ 
+        <AccountForm></AccountForm>
+
     </div>
 );
 }
