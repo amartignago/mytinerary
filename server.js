@@ -8,11 +8,11 @@ const itinerariesRouter = require('./routes/itinerary.routes')
 const imagesRouter = require('./routes/images.routes')
 const activityRouter = require('./routes/activity.routes')
 const bodyParser = require('body-parser')
-
+const userRouter = require('./routes/user.routes')
 //agregar bodyparser y app.bodyparser
 
 app.use(bodyParser.json())
 app.use(cors());
-app.use(citiesRouter, itinerariesRouter, imagesRouter, activityRouter);
+app.use(citiesRouter, itinerariesRouter, imagesRouter, activityRouter, userRouter);
 app.listen(port)
 

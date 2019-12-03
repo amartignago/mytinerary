@@ -5,7 +5,9 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import '../styles/App.css'
 import {Link} from "react-router-dom";
-
+import PropTypes from 'prop-types';
+import {fetchNewUser} from '../actions/usersActions'
+import {connect} from 'react-redux';
 
 class AccountForm extends Component {
     constructor(props) {
@@ -17,11 +19,18 @@ class AccountForm extends Component {
           email:"",
           firstName:"",
           lastName:""
-
         };
 
+        this.createNewUser = this.createNewUser.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
     }
+    static propTypes = {
+        dispatch: PropTypes.func,
+        };
+
+    createNewUser() {
+        this.props.dispatch(fetchNewUser(this.state));
+      }
   
     handleInputChange(event) {
       const target = event.target;
@@ -32,6 +41,7 @@ class AccountForm extends Component {
         [name]: value
       });
     }
+
     handleForm(e){
         if(
             !this.state.terms ||
@@ -45,11 +55,7 @@ class AccountForm extends Component {
         }
         e.preventDefault();
         
-        fetch('somewhere/over/rainbow').then((res)=>{
-            return res.json();
-        }).then((data)=>{
-            console.log(data)
-        })
+    this.createNewUser()    
     }
   
 
@@ -136,7 +142,7 @@ class AccountForm extends Component {
                 checked={this.state.terms}
                 onChange={this.handleInputChange} />
             <Form.Label column xs={10} className="ml-3 text-left">
-                <span className="itinText">I agree to MYtinerary's <Link>Terms & Conditions</Link></span>
+                <span className="itinText">I agree to MYtinerary's <Link to="#">Terms & Conditions</Link></span>
             </Form.Label>
         </Form.Group>   
         <Button variant="secondary" type="submit" name="submitBtn">
@@ -144,12 +150,15 @@ class AccountForm extends Component {
         </Button>
         
     </Form>
-
-
-
     </div>
 );
 }
 }
 
-export default AccountForm;
+const mapStateToProps = (state) => {
+    return {
+        user: state.userReducer.user,
+    }
+}
+
+export default connect(mapStateToProps)(AccountForm); 

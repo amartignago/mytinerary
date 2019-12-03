@@ -11,7 +11,7 @@ const getCityItinerary = (req,res) =>{
     City
     .findOne({_id:cityRequested})
     .populate("itineraries") //modelo del que trae los docs
-    .then((city)=>{res.send(city.itineraries).status(204)}
+    .then((city)=>{res.send(city).status(204)}
     )};    
 
 const getCity = (req,res) =>{

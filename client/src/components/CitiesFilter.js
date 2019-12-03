@@ -30,7 +30,7 @@ class CitiesFilter extends Component {
             value={this.state.citiesFilter} //cuando este valor cambia ejecuta handlechange)
             onChange={this.handleChange}/> 
         </div>
-          <ul className='nonStyleUl p-0'>
+          <ul className='nonStyleUl '>
             {this.state.visibleCities.map(city => 
             <Link to={"/cities/"+ city._id}>
               <div className="container responsiveDiv mb-4 mt-4">

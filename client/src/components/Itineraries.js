@@ -34,25 +34,25 @@ class Itineraries extends Component {
         let cityID = this.props.match.params.cityID;
         console.log(cityID);
         this.props.dispatch(fetchItineraries(cityID))
-       .then(() => console.log('hola, funciono!'))
+       .then(() => console.log(this.props))
     };
 
 
 render() { 
     const itineraries = this.props.itineraries
     const activities = this.props.activities
+    const city = this.props.city
 
  
     return ( <div className="container">
-        <NavBar/>
         <Fragment>
-            <h3 className="text-center mb-4">Available Mytineraries:</h3>
+            <div className="container responsiveDiv mb-4 mt-4 text-center h-20"> 
+                {city.img && <img src={`${urlImages.urlImages}/images/cities/${city.img}`} className="img-fluid cityImg h-10 w-100" alt=" "/>}
+                <span><h2 className="overlayText text-center">{city.name}</h2></span>
+            </div>
+            <h3 className="text-center m-5">Available Mytineraries:</h3>
             {itineraries.map(itinerary =>     
             <Fragment> 
-                {/* <div> 
-                    {city.img && <img src={`${urlImages.urlImages}/images/cities/${city.img}`} className="img-fluid cityImg" alt=" "/>}
-                   <span><h2 className="overlayText">{city.name}</h2></span>
-                </div> */}
                 <ul className='nonStyleUl p-0'>
                 <li key={itinerary._id}>
                     <div className="row itineraryPrev bd-highlight m-0 mb-1 p-2 pb-0 container-fluid">
@@ -100,9 +100,11 @@ const mapStateToProps = (state) => { // aca estoy pasando el state del storage c
     return {
         itineraries: state.itinerariesReducer.itineraries,
         activities: state.activitiesReducer.activities,
+        city: state.itinerariesReducer.city
       
         // cities: state.citiesReducer.cities.map(city => city.indexOf(city._id==this.props.match.params.cityID) )
     }
 }
+
 
 export default connect(mapStateToProps)(Itineraries); // 

@@ -4,6 +4,7 @@ const initState= {
   isFetching: false,
   didInvalidate: false,
   itineraries:[], 
+  city:[]
 }
 
 
@@ -18,6 +19,7 @@ function itinerariesReducer(state = initState, action
       return Object.assign({}, state, {
         isFetching: false,
         itineraries: action.payloadItineraries,
+        city: action. payloadCity,
         lastUpdated: action.receivedAt
       })
     default:

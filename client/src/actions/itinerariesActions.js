@@ -13,7 +13,8 @@ export function receiveItineraries(id, json) {
     return {
         type: RECEIVE_ITINERARIES,
         id,
-        payloadItineraries: json.map(itinerary=>itinerary),
+        payloadCity: json,
+        payloadItineraries: json.itineraries.map(itinerary=>itinerary),
         receivedAt: Date.now()
     }
 }
