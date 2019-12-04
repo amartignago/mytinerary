@@ -1,5 +1,5 @@
 const mongoose = require("mongoose") ;
-const uri = 'mongodb+srv://amartignago:Mongo123@cluster0-fnjg4.mongodb.net/mytinerary?retryWrites=true&w=majority';
+const uri = require('./config').mongoURI; 
 
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true})
