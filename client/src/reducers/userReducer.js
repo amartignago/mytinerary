@@ -13,6 +13,8 @@ function userReducer(state = initState, action
             isFetching: true,
           })
       case SEND_USER:
+        console.log("action") 
+        console.log(action) 
         return Object.assign({}, state, {
           isFetching: false,
           user: action.userFormData

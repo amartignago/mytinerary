@@ -22,7 +22,7 @@ export function fetchNewUser (userFormData) {
       dispatch(requestNewUser(userFormData))
       console.log(userFormData);
       return fetch('http://localhost:5000/users', {
-        method: 'POST',
+        method: 'POST', //para mandar imagenes necesito usar formdata, crear un nuevo objeto form data al que le hago append de mi objeto estado
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -39,3 +39,4 @@ export function fetchNewUser (userFormData) {
       )
   }
 }
+

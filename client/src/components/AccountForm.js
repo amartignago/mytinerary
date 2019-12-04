@@ -14,7 +14,7 @@ class AccountForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          avatarImage: [],  
+        //   avatarImage: [],  
           terms: false,
           username:"",
           password:"",
@@ -44,11 +44,11 @@ class AccountForm extends Component {
       });
     }
 
-    handleImageChange = event => {
-        this.setState({
-            avatarImage: event.target.files[0]
-        });
-      } 
+    // handleImageChange = event => {
+    //     this.setState({
+    //         avatarImage: event.target.files[0]
+    //     });
+    //   } 
     
 
     handleForm(e){
@@ -72,14 +72,15 @@ class AccountForm extends Component {
 
     <h3 className="mb-5">Create Account</h3>
     <Form className="w-100" onSubmit={(e)=>{this.handleForm(e)}}> 
-        <Form.Group as={Row} controlId="username" className="inlineForm">
+        {/* <Form.Group as={Row} controlId="avatarImg" className="inlineForm">
             <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">User Image</span></Form.Label>
                 <input 
+                    id= "avatarImgInput"
                     type="file"
                     className="itinText"
                     value={null}
                     onChange={this.handleImageChange}/>        
-        </Form.Group> 
+        </Form.Group>  */}
         <Form.Group as={Row} controlId="username" className="inlineForm">
             <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">Username:</span></Form.Label>
             <Col xs={8}>
