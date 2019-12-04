@@ -1,4 +1,4 @@
-import {SEND_USER, REQUEST_NEW_USER} from '../actions/usersActions'
+import {SEND_USER, REQUEST_USER} from '../actions/usersActions'
 
 const initState= {
   isFetching: false,
@@ -8,13 +8,11 @@ const initState= {
 function userReducer(state = initState, action
   ) {
     switch (action.type) {
-        case REQUEST_NEW_USER:
+        case REQUEST_USER:
           return Object.assign({}, state, {
             isFetching: true,
           })
-      case SEND_USER:
-        console.log("action") 
-        console.log(action) 
+      case SEND_USER: 
         return Object.assign({}, state, {
           isFetching: false,
           user: action.userFormData

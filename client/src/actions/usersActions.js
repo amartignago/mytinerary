@@ -1,9 +1,9 @@
 import fetch from 'cross-fetch'
 
-export const REQUEST_NEW_USER ='REQUEST_NEW_USER'    
-export function requestNewUser(userFormData) {
+export const REQUEST_USER ='REQUEST_USER'    
+export function requestUser(userFormData) {
     return {
-        type: REQUEST_NEW_USER,
+        type: REQUEST_USER,
         userFormData
     }
 }
@@ -17,9 +17,32 @@ export function sendUser(userFormData) {
   }
 }
 
+export function fetchLogin (userFormData) {
+  return dispatch => {
+      dispatch(requestUser(userFormData))
+      return fetch('http://localhost:5000/login', {
+        method: 'POST', 
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            userFormData: userFormData
+        })
+      })
+      .then(
+          userResponse => { return userResponse.json()},
+          error => console.log('an error ocurred', error)
+      )
+      .then( userJson => dispatch(sendUser(userJson))
+      )
+  }
+}
+
+
 export function fetchNewUser (userFormData) {
   return dispatch => {       
-      dispatch(requestNewUser(userFormData))
+      dispatch(requestUser(userFormData))
       console.log(userFormData);
       return fetch('http://localhost:5000/users', {
         method: 'POST', //para mandar imagenes necesito usar formdata, crear un nuevo objeto form data al que le hago append de mi objeto estado

@@ -5,7 +5,9 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import '../styles/App.css'
 import {Link} from "react-router-dom";
-
+import {fetchLogin} from '../actions/usersActions';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 class LoginForm extends Component {
     constructor(props) {
@@ -16,9 +18,15 @@ class LoginForm extends Component {
           remember:false
         };
 
+        this.loginUser = this.loginUser.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
     }
   
+    loginUser() {
+        this.props.dispatch(fetchLogin(this.state));
+      }
+  
+
     handleInputChange(event) {
       const target = event.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -28,6 +36,7 @@ class LoginForm extends Component {
         [name]: value
       });
     }
+
     handleForm(e){
         if(
             this.state.username =="" ||
@@ -36,12 +45,7 @@ class LoginForm extends Component {
             e.preventDefault()
         }
         e.preventDefault();
-        
-        fetch('').then((res)=>{
-            return res.json();
-        }).then((data)=>{
-            console.log(data)
-        })
+    this.loginUser()
     }
   
 
@@ -92,4 +96,10 @@ class LoginForm extends Component {
 }
 }
 
-export default LoginForm;
+const mapStateToProps = (state) => {
+    return {
+        user: state.userReducer.user,
+    }
+}
+
+export default connect(mapStateToProps)(LoginForm); 
