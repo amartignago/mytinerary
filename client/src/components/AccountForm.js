@@ -8,11 +8,13 @@ import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 import {fetchNewUser} from '../actions/usersActions'
 import {connect} from 'react-redux';
+import ImageUploader from 'react-images-upload'
 
 class AccountForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
+          avatarImage: [],  
           terms: false,
           username:"",
           password:"",
@@ -36,11 +38,18 @@ class AccountForm extends Component {
       const target = event.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
-  
+
       this.setState({
         [name]: value
       });
     }
+
+    handleImageChange = event => {
+        this.setState({
+            avatarImage: event.target.files[0]
+        });
+      } 
+    
 
     handleForm(e){
         if(
@@ -64,10 +73,18 @@ class AccountForm extends Component {
     <h3 className="mb-5">Create Account</h3>
     <Form className="w-100" onSubmit={(e)=>{this.handleForm(e)}}> 
         <Form.Group as={Row} controlId="username" className="inlineForm">
+            <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">User Image</span></Form.Label>
+                <input 
+                    type="file"
+                    className="itinText"
+                    value={null}
+                    onChange={this.handleImageChange}/>        
+        </Form.Group> 
+        <Form.Group as={Row} controlId="username" className="inlineForm">
             <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">Username:</span></Form.Label>
             <Col xs={8}>
                 <input
-                    className="col-xs-4 text-right"
+                    className="col-xs-4 text-left itinText"
                     name="username"
                     type="text"
                     value={this.state.username}
@@ -78,7 +95,7 @@ class AccountForm extends Component {
             <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">Password:</span></Form.Label>
             <Col xs={8}>
                 <input
-                    className="col-xs-4 text-right"
+                    className="col-xs-4 text-left itinText"
                     name="password"
                     type="text"
                     value={this.state.password}
@@ -89,7 +106,7 @@ class AccountForm extends Component {
             <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">Email:</span></Form.Label>
             <Col xs={8}>
                 <input
-                    className="col-xs-4 text-right"
+                    className="col-xs-4 text-left itinText"
                     name="email"
                     type="text"
                     value={this.state.email}
@@ -100,7 +117,7 @@ class AccountForm extends Component {
             <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">First Name:</span></Form.Label>
             <Col xs={8}>
                 <input
-                    className="col-xs-4 text-right"
+                    className="col-xs-4 text-left itinText"
                     name="firstName"
                     type="text"
                     value={this.state.firstName}
@@ -111,7 +128,7 @@ class AccountForm extends Component {
             <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">Last Name:</span></Form.Label>
             <Col xs={8}>
                 <input
-                    className="col-xs-4 text-right"
+                    className="col-xs-4 text-left itinText"
                     name="lastName"
                     type="text"
                     value={this.state.lastName}
@@ -136,7 +153,7 @@ class AccountForm extends Component {
         </Form.Group>
         <Form.Group>
             <input
-                className="col-xs-4 text-right"
+                className="col-xs-4 text-right itinText"
                 name="terms"
                 type="checkbox"
                 checked={this.state.terms}
