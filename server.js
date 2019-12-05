@@ -4,7 +4,8 @@ const port = require('./config').port;
 const cors = require("cors")
 const db = require("./db") //database connection here
 const bodyParser = require('body-parser')
-const passport = require ('./passport')
+const passport = require ("passport")
+require ('./passport')
 
 //Routes:
 const citiesRouter = require('./routes/city.routes')
@@ -13,7 +14,7 @@ const imagesRouter = require('./routes/images.routes')
 const activityRouter = require('./routes/activity.routes')
 const userRouter = require('./routes/user.routes')
 
-// app.use(passport.initialize());
+app.use(passport.initialize())
 app.use(bodyParser.json())
 app.use(cors());
 app.use(citiesRouter, itinerariesRouter, imagesRouter, activityRouter, userRouter);

@@ -2,6 +2,7 @@ const User = require("../models/user.model")
 const bcrypt = require('bcryptjs')
 const key = require("../config")
 const jwt = require("jsonwebtoken")
+const userModel = require ('../models/user.model')
 
 //list of all users:
 const getUsers = (req, res) => {
@@ -90,8 +91,35 @@ const loginUser = (req, res) => {
     }) 
 }  
 
+//get user data w token
+const getUserData = (req, res) => {
+    userModel
+      .findOne({ _id: req.user.id })
+      .then(user => {
+        res.json(user);
+      })
+      .catch(err => res.status(404).json({ error: "User does not exist!" }));
+  }
+
+
+const getUserGoogle = (req, res) => {
+    User
+        .find({}).then((users) => { res.json(users).status(204) }
+        )
+};
+
+const redirectUserGoogle = (req, res) => {
+    User
+        .find({}).then((users) => { res.json(users).status(204) }
+        )
+};
+
+
 module.exports = {
     getUsers,
     registerUser,
-    loginUser
+    loginUser,
+    getUserData,
+    getUserGoogle,
+    redirectUserGoogle
 }
