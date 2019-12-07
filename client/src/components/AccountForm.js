@@ -8,19 +8,20 @@ import {Link} from "react-router-dom";
 import PropTypes from 'prop-types';
 import {fetchNewUser} from '../actions/usersActions'
 import {connect} from 'react-redux';
-import ImageUploader from 'react-images-upload'
+import Image from 'react-bootstrap/Image'
 
 class AccountForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-        //   avatarImage: [],  
+          avatarImage: [], 
+          tempURL:null,
           terms: false,
           username:"",
           password:"",
           email:"",
           firstName:"",
-          lastName:""
+          lastName:"",
         };
 
         this.createNewUser = this.createNewUser.bind(this);
@@ -30,8 +31,13 @@ class AccountForm extends Component {
         dispatch: PropTypes.func,
         };
 
-    createNewUser() {
-        this.props.dispatch(fetchNewUser(this.state));
+    async createNewUser() {     
+        await this.props.dispatch(fetchNewUser(this.state));
+        if (this.props.success) {
+            console.log("success!")
+        } else {
+            console.log("soy asincrono boluda")
+        }
       }
   
     handleInputChange(event) {
@@ -44,13 +50,18 @@ class AccountForm extends Component {
       });
     }
 
-    // handleImageChange = event => {
-    //     this.setState({
-    //         avatarImage: event.target.files[0]
-    //     });
-    //   } 
-    
-
+    handleImageChange = e => {
+        let reader = new FileReader();
+        let file = e.target.files[0];
+        reader.onloadend = () => {
+            this.setState({
+                avatarImage: file,
+                tempURL: reader.result
+            })
+        }
+        reader.readAsDataURL(file)
+    }
+       
     handleForm(e){
         if(
             !this.state.terms ||
@@ -64,26 +75,34 @@ class AccountForm extends Component {
         }
         e.preventDefault();
         
-    this.createNewUser()    
+    this.createNewUser();
     }
   
+    
+
 
     render() { return ( <div className="text-center">
 
     <h3 className="mb-5">Create Account</h3>
-    <Form className="w-100" onSubmit={(e)=>{this.handleForm(e)}}> 
-        {/* <Form.Group as={Row} controlId="avatarImg" className="inlineForm">
-            <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">User Image</span></Form.Label>
-                <input 
-                    id= "avatarImgInput"
-                    type="file"
-                    className="itinText"
-                    value={null}
-                    onChange={this.handleImageChange}/>        
-        </Form.Group>  */}
+    <Form className="w-100 text-center" onSubmit={(e)=>{this.handleForm(e)}}> 
+        <Form.Group as={Row} controlId="avatarImg" className="inlineForm text-center">
+                <Col xs={6} className="ml-3"></Col>
+                <Col xs={4} className="pr-0 mr-0 text-center">
+                    <Image src={this.state.tempURL} roundedCircle fluid className="mb-3 userImg d-block"/> 
+                    <input 
+                        id= "avatarImgInput"
+                        name = "avatarImage"
+                        type="file"
+                        className="itinText text-center mb-5 mr-0 d-block"
+                        value={null}
+                        onChange={this.handleImageChange}/>  
+                </Col>
+                <Col xs={3} className="pr-0 mr-0"></Col>
+        </Form.Group> 
         <Form.Group as={Row} controlId="username" className="inlineForm">
-            <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">Username:</span></Form.Label>
-            <Col xs={8}>
+            <Col xs={3}></Col>
+            <Form.Label column xs={3} className="text-right"><span className="itinText font-weight-bold">Username:</span></Form.Label>
+            <Col xs={3}>
                 <input
                     className="col-xs-4 text-left itinText"
                     name="username"
@@ -91,10 +110,12 @@ class AccountForm extends Component {
                     value={this.state.username}
                     onChange={this.handleInputChange} />
             </Col>
+            <Col xs={3}></Col>
         </Form.Group> 
         <Form.Group as={Row} controlId="password" className="inlineForm">
-            <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">Password:</span></Form.Label>
-            <Col xs={8}>
+            <Col xs={3} className="pr-0 mr-0"></Col>
+            <Form.Label column xs={3} className="text-right"><span className="itinText font-weight-bold">Password:</span></Form.Label>
+            <Col xs={3}>
                 <input
                     className="col-xs-4 text-left itinText"
                     name="password"
@@ -102,10 +123,12 @@ class AccountForm extends Component {
                     value={this.state.password}
                     onChange={this.handleInputChange} />
             </Col>
+            <Col xs={3} className="pr-0 mr-0"></Col>
         </Form.Group>
         <Form.Group as={Row} controlId="email" className="inlineForm">
-            <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">Email:</span></Form.Label>
-            <Col xs={8}>
+            <Col xs={3} className="pr-0 mr-0"></Col>
+            <Form.Label column xs={3} className="text-right"><span className="itinText font-weight-bold">Email:</span></Form.Label>
+            <Col xs={3}>
                 <input
                     className="col-xs-4 text-left itinText"
                     name="email"
@@ -113,10 +136,12 @@ class AccountForm extends Component {
                     value={this.state.email}
                     onChange={this.handleInputChange} />
             </Col>
+            <Col xs={3} className="pr-0 mr-0"></Col>
         </Form.Group>     
         <Form.Group as={Row} controlId="firstName" className="inlineForm">
-            <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">First Name:</span></Form.Label>
-            <Col xs={8}>
+            <Col xs={3} className="pr-0 mr-0"></Col>
+            <Form.Label column xs={3} className="text-right"><span className="itinText font-weight-bold">First Name:</span></Form.Label>
+            <Col xs={3}>
                 <input
                     className="col-xs-4 text-left itinText"
                     name="firstName"
@@ -124,10 +149,12 @@ class AccountForm extends Component {
                     value={this.state.firstName}
                     onChange={this.handleInputChange} />
             </Col>
+            <Col xs={3} className="pr-0 mr-0"></Col>
         </Form.Group> 
         <Form.Group as={Row} controlId="lastName" className="inlineForm">
-            <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">Last Name:</span></Form.Label>
-            <Col xs={8}>
+            <Col xs={3} className="pr-0 mr-0"></Col>
+            <Form.Label column xs={3} className="text-right"><span className="itinText font-weight-bold">Last Name:</span></Form.Label>
+            <Col xs={3}>
                 <input
                     className="col-xs-4 text-left itinText"
                     name="lastName"
@@ -135,11 +162,13 @@ class AccountForm extends Component {
                     value={this.state.lastName}
                     onChange={this.handleInputChange} />
             </Col>
+            <Col xs={3} className="pr-0 mr-0"></Col>
         </Form.Group>  
         
         <Form.Group as={Row} controlId="country" className="inlineForm">
-            <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">Country:</span></Form.Label>
-            <Col xs={2}>
+            <Col xs={3} className="pr-0 mr-0"></Col>
+            <Form.Label column xs={3} className="text-right"><span className="itinText font-weight-bold">Country:</span></Form.Label>
+            <Col xs={3}>
                 <Form.Control name="country" as="select">
                     <option>Choose...</option>
                     <option>England</option>
@@ -151,15 +180,17 @@ class AccountForm extends Component {
                     <option>USA</option>
                 </Form.Control>
             </Col>
+            <Col xs={3} className="pr-0 mr-0"></Col>
         </Form.Group>
         <Form.Group>
+        <Col xs={7} className="pr-0 mr-0"></Col>
             <input
-                className="col-xs-4 text-right itinText"
+                className="col-xs-3 text-right itinText"
                 name="terms"
                 type="checkbox"
                 checked={this.state.terms}
                 onChange={this.handleInputChange} />
-            <Form.Label column xs={10} className="ml-3 text-left">
+            <Form.Label column xs={5} className="ml-3">
                 <span className="itinText">I agree to MYtinerary's <Link to="#">Terms & Conditions</Link></span>
             </Form.Label>
         </Form.Group>   
@@ -176,6 +207,8 @@ class AccountForm extends Component {
 const mapStateToProps = (state) => {
     return {
         user: state.userReducer.user,
+        success: state.userReducer.success,
+        error: state.userReducer.error
     }
 }
 

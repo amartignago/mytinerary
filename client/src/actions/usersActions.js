@@ -39,26 +39,28 @@ export function fetchLogin (userFormData) {
   }
 }
 
-
 export function fetchNewUser (userFormData) {
-  return dispatch => {       
-      dispatch(requestUser(userFormData))
-      console.log(userFormData);
-      return fetch('http://localhost:5000/users', {
-        method: 'POST', //para mandar imagenes necesito usar formdata, crear un nuevo objeto form data al que le hago append de mi objeto estado
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            userFormData: userFormData
+  return dispatch => {   
+      let formData = new FormData();
+      let fileField = document.querySelector("input[type='file']");    
+      // dispatch(requestUser(userFormData))
+      // console.log(userFormData);
+        formData.append('username',userFormData.username);
+        formData.append('password',userFormData.password);
+        formData.append('email',userFormData.email);
+        formData.append('firstName',userFormData.firstName);
+        formData.append('lastName',userFormData.lastName)
+        formData.append('avatarImage', fileField.files[0]);
+
+        return fetch('http://localhost:5000/users', {
+          method: 'POST',
+          body: formData
         })
-      })
-      .then(
+        .then(
           userResponse => { return userResponse.json()},
           error => console.log('an error ocurred', error)
-      )
-      .then( userJson => dispatch(sendUser(userJson))
+        )
+        .then(userJson => dispatch(sendUser(userJson))
       )
   }
 }

@@ -7,7 +7,7 @@ const passport = require('../passport')
 
 router.get("/users", passport.authenticate("jwt", { session: false }), userController.getUserData);
 router.post("/login", userController.loginUser);
-router.post("/users", upload.single('avatarImage'), userController.registerUser);
+router.post("/users", upload.single('avatarImage'), userController.registerUser); //campo del formulario del front
 // router.get("/users/google", userController.)
 // router.get("/users/google/redirect", userController.)
 

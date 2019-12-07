@@ -3,7 +3,7 @@ const multer = require('multer');
 //images storage + name configuration:
 const storage = multer.diskStorage({ 
     destination: function(req, file, cb) {
-      cb(null, './images');
+      cb(null, './images/users');
     },
     filename: function(req, file, cb) {
      cb(null, file.originalname);

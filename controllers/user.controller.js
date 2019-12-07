@@ -13,30 +13,29 @@ const getUsers = (req, res) => {
 
 //create new user:
 const registerUser = (req, res) => {
-    console.log(req.body)
     if(
         req.body.terms == false ||
-         req.body.username == "" ||
-         req.body.password == "" ||
-         req.body.email == "" ||
-         req.body.firstName == "" ||
-         req.body.lastName == "" ||
-         req.body.country == "")  return res.send({message:"Please complete all the fields"});
+        req.body.username == "" ||
+        req.body.password == "" ||
+        req.body.email == "" ||
+        req.body.firstName == "" ||
+        req.body.lastName == "" ||
+        req.body.country == "")  return res.send({message:"Please complete all the fields"});
         
          // if any is empty return a message, otherwise next validation
 
         User.findOne({username: req.body.username}).then((user)=> {
             if(user!==null) return res.send({message: "the username already exists"}) // if username exists, provide error
-                console.log(req.file)
-                const hashedPassword = bcrypt.hashSync(req.body.userFormData.password, 10) //else
+                const avatarPath = req.file.path
+                const hashedPassword = bcrypt.hashSync(req.body.password, 10) //else
                 User.create({
-                    username: req.body.userFormData.username,
+                    username: req.body.username,
                     password: hashedPassword,
-                    // avatarPath: req.file.name,
-                    email: req.body.userFormData.email,
-                    firstName: req.body.userFormData.firstName,
-                    lastName: req.body.userFormData.lastName,
-                    country: req.body.userFormData.country
+                    avatarPath: avatarPath,
+                    email: req.body.email,
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    country: req.body.country
                 })
                     .then((newUser) => {
                             res.json(newUser).status(204)
