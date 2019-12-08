@@ -1,5 +1,5 @@
 const mongoose = require("mongoose") ;
-const uri = require('./config').mongoURI; 
+const uri = require('./config/config').mongoURI; 
 
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true})

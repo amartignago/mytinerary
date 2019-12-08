@@ -1,6 +1,6 @@
 const User = require("../models/user.model")
 const bcrypt = require('bcryptjs')
-const key = require("../config")
+const key = require("../config/config")
 const jwt = require("jsonwebtoken")
 const userModel = require ('../models/user.model')
 
@@ -99,7 +99,6 @@ const getUserData = (req, res) => {
       })
       .catch(err => res.status(404).json({ error: "User does not exist!" }));
   }
-
 
 const getUserGoogle = (req, res) => {
     User
