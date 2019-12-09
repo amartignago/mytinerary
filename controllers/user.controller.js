@@ -45,7 +45,7 @@ const registerUser = (req, res) => {
         }   )    
 }
 
-//user login
+//user local login
 const loginUser = (req, res) => {
     console.log('body')
     console.log(req.body)
@@ -59,7 +59,7 @@ const loginUser = (req, res) => {
                 const payload = {
                     id: user.id,
                     username: user.username,
-                    // avatarPicture: user.avatarPicture
+                    avatarPicture: user.avatarPath
                 };
                 const options = {expiresIn: 2592000};
                 jwt.sign(
@@ -69,11 +69,13 @@ const loginUser = (req, res) => {
                 (err, token) => {
                     if(err){
                      return res.json({
+                        payload:payload,
                         success: false,
                         token: "There was an error"
                     });
                     }else {
                      return res.json({
+                        payload:payload,
                         success: true,
                         token: token
                     });
@@ -89,8 +91,7 @@ const loginUser = (req, res) => {
     res.json(err).status(500)
     }) 
 }  
-
-//get user data w token
+//login user data w token
 const getUserData = (req, res) => {
     userModel
       .findOne({ _id: req.user.id })
@@ -100,24 +101,41 @@ const getUserData = (req, res) => {
       .catch(err => res.status(404).json({ error: "User does not exist!" }));
   }
 
-const getUserGoogle = (req, res) => {
-    User
-        .find({}).then((users) => { res.json(users).status(204) }
-        )
+  //login user data w google
+const userRedirect = (req, res) => {
+    const payload = {
+        id: req.user.id,
+        username: req.user.username,
+        // avatarPicture: user.avatarPath
+    };
+    const options = {expiresIn: 2592000};
+    
+    jwt.sign(
+    payload,
+    key.secretOrKey,
+    options,
+    (err, token) => {
+        if(err){
+         return res.json({
+            payload:payload,
+            success: false,
+            token: "There was an error",
+        });
+        }else {
+            // res.json({
+            // payload: payload,
+            // success: true,
+            // token: token});
+            return res.redirect(`http://localhost:3000/profile/${payload.id}/${token}`)
+        }
+    }
+    )
 };
-
-const redirectUserGoogle = (req, res) => {
-    User
-        .find({}).then((users) => { res.json(users).status(204) }
-        )
-};
-
 
 module.exports = {
     getUsers,
     registerUser,
     loginUser,
     getUserData,
-    getUserGoogle,
-    redirectUserGoogle
+    userRedirect
 }

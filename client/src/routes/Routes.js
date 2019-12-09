@@ -4,6 +4,7 @@ import Cities from '../components/Cities.js';
 import Itineraries from '../components/Itineraries.js';
 import Account from '../components/Account.js';
 import Home from '../components/Home.js';
+import Profile from '../components/Profile'
 import '../styles/App.css';
 import {
   Switch,
@@ -17,6 +18,7 @@ const routes = () => (
       <Route path="/login" component = {Login} />
       <Route exact path="/cities" component = {Cities} />
       <Route path="/cities/:cityID" component = {Itineraries} />
+      <Route path="/profile/:userID/:token" component = {Profile}/>
     </Switch>
 )
 export default routes;
