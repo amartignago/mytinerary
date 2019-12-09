@@ -28,8 +28,8 @@ router.get("/auth/google", passport.authenticate('google', // first param: strat
 //google callback route (JWT)
 router.get("/auth/google/redirect", passport.authenticate('google',{ session: false }), userController.userRedirect); 
 
-//get user data api
-// router.get("/auth/google/api", userController.getUserGoogle);
+//get user data google
+router.get("/auth/google/:_id", userController.getUserGoogle);
 
 module.exports = router
 

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import NavBar from './NavBar.js'
 import '../styles/App.css'
 import {connect} from 'react-redux';
-import {fetchLoginGoogle} from '../actions/usersActions';
+import {fetchLoginGoogle, storeToken} from '../actions/usersActions';
 import PropTypes from 'prop-types';
 
 
@@ -11,17 +11,26 @@ class Profile extends Component {
         super(props)
         this.state = {
         }
-    };
+
+    this.sendUserToState = this.sendUserToState.bind(this);
+    }
+
     static propTypes = {
         dispatch: PropTypes.func,
       }
     
+    async sendUserToState() {     
+        const userID = this.props.match.params.userID
+        const token = this.props.match.params.token
+        await this.props.dispatch(fetchLoginGoogle(userID));
+            this.props.dispatch(storeToken(token))
+           
+    }
+
     componentDidMount() {
-       const userID = this.props.match.params.userID
-       const token = this.props.match.params.token
-       console.log(userID)
-        this.props.dispatch(fetchLoginGoogle(userID))
-       .then(() => console.log('hola, funciono!'))
+
+        this.sendUserToState();
+       
     }
 
 render() { 

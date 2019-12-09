@@ -22,20 +22,9 @@ class Login extends Component {
         
         <LoginForm></LoginForm>
 
-        {/* <Button> 
+        <Button> 
             <a  href="http://localhost:5000/auth/google">Login with Google</a> 
-            {/* add backend route */}
-        {/* </Button>       */} 
-
-        <GoogleLogin
-        clientId="719773766003-k4nbpjqs5t4arpuo285br1hcrniv4kmb.apps.googleusercontent.com"
-        buttonText="Login"
-        onSuccess={responseGoogle}
-        onFailure={responseGoogle}
-        cookiePolicy={'single_host_origin'}
-        />,
-       {document.getElementById('googleButton')}
-
+        </Button>       
 
         <p className="m-4">Don't have a Mytinerary Account yet? You should create one! It's totally free and only takes a minute.</p>
         <Link to="/account">Create Account</Link>

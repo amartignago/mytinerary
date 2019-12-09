@@ -1,8 +1,9 @@
-import {SEND_USER, REQUEST_USER} from '../actions/usersActions'
+import {SEND_USER, REQUEST_USER, STORE_TOKEN} from '../actions/usersActions'
 
 const initState= {
   isFetching: false,
   user:{},
+  token: "",
   success: false,
   error: false
 }
@@ -20,6 +21,11 @@ function userReducer(state = initState, action
           user: action.userFormData,
           success: true
         })
+      case STORE_TOKEN:
+          return Object.assign({}, state, {
+            isFetching: true,
+            token: action.token
+          })
       default:
         return state
     }

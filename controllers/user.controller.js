@@ -45,7 +45,7 @@ const registerUser = (req, res) => {
         }   )    
 }
 
-//user local login
+//user local login w token
 const loginUser = (req, res) => {
     console.log('body')
     console.log(req.body)
@@ -91,7 +91,7 @@ const loginUser = (req, res) => {
     res.json(err).status(500)
     }) 
 }  
-//login user data w token
+//local login get user data
 const getUserData = (req, res) => {
     userModel
       .findOne({ _id: req.user.id })
@@ -126,16 +126,35 @@ const userRedirect = (req, res) => {
             // payload: payload,
             // success: true,
             // token: token});
-            return res.redirect(`http://localhost:3000/profile/${payload.id}/${token}`)
+            // console.log(res)
+            res.redirect(`http://localhost:3000/profile/${payload.id}/${token}`) 
         }
     }
     )
 };
+
+const getUserDataGoogle = (req, res) => {
+    userModel
+      .findOne({ _id: req.user.id })
+      .then(user => {
+        res.json(user);
+      })
+      .catch(err => res.status(404).json({ error: "User does not exist!" }));
+  }
+
+const getUserGoogle = (req,res) =>{
+    let userRequested = req.params._id;  
+    User
+    .findOne({_id:userRequested})
+    .then((user)=>{res.json(user).status(204)}
+)}; 
+
 
 module.exports = {
     getUsers,
     registerUser,
     loginUser,
     getUserData,
-    userRedirect
+    userRedirect,
+    getUserGoogle
 }

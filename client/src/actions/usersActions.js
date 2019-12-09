@@ -17,7 +17,7 @@ export function sendUser(userFormData) {
   }
 }
 
-//register action
+//register user action
 export function fetchNewUser (userFormData) {
   return dispatch => {   
       let formData = new FormData();
@@ -67,11 +67,21 @@ export function fetchLogin (userFormData) {
   }
 }
 
-//google login action
+
+//google login actions
+
+export const STORE_TOKEN = 'STORE_TOKEN'
+export function storeToken(token) {
+  return {
+      type: STORE_TOKEN,
+      token
+  }
+}
+
 export function fetchLoginGoogle (id) {
   return dispatch => {
       dispatch(requestUser(id))
-      return fetch('http://localhost:5000/auth/google/api')
+      return fetch(`http://localhost:5000/auth/google/${id}`)
       .then(
           userResponse => userResponse.json(),
           error => console.log('an error ocurred', error)
