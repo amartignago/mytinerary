@@ -53,7 +53,7 @@ const loginUser = (req, res) => {
     .then((user)=> {
         console.log(user)
         if (user==null) {//if user don't exist
-            return res.status(500).send('Enter a valid username'); 
+            return res.status(402).send('Enter a valid username'); 
         } else { //if user exists, compare pass with hash
             if (bcrypt.compareSync(req.body.userFormData.password, user.password)) { //if true
                 const payload = {
@@ -69,13 +69,13 @@ const loginUser = (req, res) => {
                 (err, token) => {
                     if(err){
                      return res.json({
-                        payload:payload,
+                        user: payload,
                         success: false,
                         token: "There was an error"
                     });
                     }else {
                      return res.json({
-                        payload:payload,
+                        user: payload,
                         success: true,
                         token: token
                     });
@@ -83,7 +83,7 @@ const loginUser = (req, res) => {
                 }
                 )
             } else {
-                return res.status(400).send({message: "wrong password"}); 
+                return res.status(402).send({message: "wrong password"}); 
             }
         }      
     })
@@ -127,20 +127,12 @@ const userRedirect = (req, res) => {
             // success: true,
             // token: token});
             // console.log(res)
-            res.redirect(`http://localhost:3000/profile/${payload.id}/${token}`) 
+            res.redirect(`http://localhost:3000/profile/${token}`) 
         }
     }
     )
 };
 
-const getUserDataGoogle = (req, res) => {
-    userModel
-      .findOne({ _id: req.user.id })
-      .then(user => {
-        res.json(user);
-      })
-      .catch(err => res.status(404).json({ error: "User does not exist!" }));
-  }
 
 const getUserGoogle = (req,res) =>{
     let userRequested = req.params._id;  

@@ -18,7 +18,8 @@ const routes = () => (
       <Route path="/login" component = {Login} />
       <Route exact path="/cities" component = {Cities} />
       <Route path="/cities/:cityID" component = {Itineraries} />
-      <Route path="/profile/:userID/:token" component = {Profile}/>
+      <Route exact path="/profile/:token?" component = {Profile}/>
+    
     </Switch>
 )
 export default routes;

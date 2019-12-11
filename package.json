@@ -25,6 +25,7 @@
     "express": "^4.17.1",
     "fs": "0.0.1-security",
     "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^2.2.0",
     "material-icons-react": "^1.0.4",
     "mdbreact": "^4.22.1",
     "mongoose": "^5.7.7",
@@ -46,6 +47,7 @@
     "react-toastify": "^5.4.1",
     "redux": "^4.0.4",
     "redux-devtools-extension": "^2.13.8",
+    "redux-localstore": "^0.4.0",
     "redux-thunk": "^2.3.0"
   }
 }

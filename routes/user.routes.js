@@ -28,8 +28,10 @@ router.get("/auth/google", passport.authenticate('google', // first param: strat
 //google callback route (JWT)
 router.get("/auth/google/redirect", passport.authenticate('google',{ session: false }), userController.userRedirect); 
 
-//get user data google
-router.get("/auth/google/:_id", userController.getUserGoogle);
+// //get user data google
+// router.get("/auth/google/:_id", userController.getUserGoogle);
 
 module.exports = router
+
+//con passport puedo usar req.logout para cerrar sesion, el tema es que el redirect me redirige a una ruta del back...
 

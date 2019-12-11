@@ -17,6 +17,15 @@ export function sendUser(userFormData) {
   }
 }
 
+export const STORE_TOKEN_USER = 'STORE_TOKEN_USER'
+export function storeTokenUser(token, decodedUser) { //stores token and decoded token user info 
+  return {
+      type: STORE_TOKEN_USER,
+      token,
+      decodedUser
+  }
+}
+
 //register user action
 export function fetchNewUser (userFormData) {
   return dispatch => {   
@@ -45,9 +54,9 @@ export function fetchNewUser (userFormData) {
 }
 
 //local login Action
-export function fetchLogin (userFormData) {
+export function fetchLogin (userFormData) { //user y pass
   return dispatch => {
-      dispatch(requestUser(userFormData))
+      dispatch(requestUser(userFormData)) //user y pass
       return fetch('http://localhost:5000/auth/login', {
         method: 'POST', 
         headers: {
@@ -55,39 +64,31 @@ export function fetchLogin (userFormData) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            userFormData: userFormData
+            userFormData: userFormData //user y pass
         })
       })
       .then(
-          userResponse => { return userResponse.json()},
+          userResponse => { return userResponse.json()}, //user info returned
           error => console.log('an error ocurred', error)
       )
-      .then( userJson => dispatch(sendUser(userJson))
+      .then( userJson => dispatch(sendUser(userJson)) //send that user info to redux
       )
   }
 }
 
 
-//google login actions
 
-export const STORE_TOKEN = 'STORE_TOKEN'
-export function storeToken(token) {
-  return {
-      type: STORE_TOKEN,
-      token
-  }
-}
 
-export function fetchLoginGoogle (id) {
-  return dispatch => {
-      dispatch(requestUser(id))
-      return fetch(`http://localhost:5000/auth/google/${id}`)
-      .then(
-          userResponse => userResponse.json(),
-          error => console.log('an error ocurred', error)
-      )
-      .then( userJson => dispatch(sendUser(userJson))
-      )
-  }
-}
+// export function fetchLoginGoogle (id) {
+//   return dispatch => {
+//       dispatch(requestUser(id))
+//       return fetch(`http://localhost:5000/auth/google/${id}`)
+//       .then(
+//           userResponse => userResponse.json(),
+//           error => console.log('an error ocurred', error)
+//       )
+//       .then( userJson => dispatch(sendUser(userJson))
+//       )
+//   }
+// }
 

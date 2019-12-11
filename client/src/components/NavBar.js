@@ -5,6 +5,7 @@ import Dropdown from 'react-bootstrap/Dropdown'
 import NavLogo from '../images/empty_user.png'
 
 
+//mi navbar deberia recibir como props el state de redux, si hay usuario, mostrar su info
 
 class NavBar extends Component {
     render() { return ( <div className="ml-4 mr-4 mb-4 mt-0 pt-4">

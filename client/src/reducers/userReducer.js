@@ -1,12 +1,20 @@
-import {SEND_USER, REQUEST_USER, STORE_TOKEN} from '../actions/usersActions'
+import {SEND_USER, REQUEST_USER, STORE_TOKEN_USER} from '../actions/usersActions'
+import { defineState } from 'redux-localstore';
+
+//TO RESET THE STATE:
+//import { resetState } from 'redux-localstore';
+ 
+//resetState();
 
 const initState= {
   isFetching: false,
   user:{},
-  token: "",
+  providerToken: "",
   success: false,
   error: false
 }
+
+// const initState = defineState(defaultState)('userReducer')
 
 function userReducer(state = initState, action
   ) {
@@ -21,10 +29,11 @@ function userReducer(state = initState, action
           user: action.userFormData,
           success: true
         })
-      case STORE_TOKEN:
+      case STORE_TOKEN_USER:
           return Object.assign({}, state, {
             isFetching: true,
-            token: action.token
+            providerToken: action.token,
+            user: action.decodedUser
           })
       default:
         return state

@@ -8,6 +8,8 @@ import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import {GoogleLogin} from 'react-google-login';
+import { Redirect } from 'react-router-dom'
+
 
 
 const port = 'http://localhost:5000'
