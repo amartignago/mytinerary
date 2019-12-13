@@ -48,7 +48,8 @@ passport.use(new GoogleStrategy({
           //it doesn't exist, create it first, then done.
             new User({
                 googleID: profile.id,
-                username: profile.displayName
+                username: profile.displayName,
+                avatarPath: profile.photos[0].value
             })
             .save()
             .then((newUser) => {

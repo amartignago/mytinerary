@@ -9,7 +9,7 @@ import { defineState } from 'redux-localstore';
 const initState= {
   isFetching: false,
   user:{},
-  providerToken: "",
+  token: "",
   success: false,
   error: false
 }
@@ -27,12 +27,13 @@ function userReducer(state = initState, action
         return Object.assign({}, state, {
           isFetching: false,
           user: action.userFormData,
+          token: action.userFormData.token,
           success: true
         })
       case STORE_TOKEN_USER:
           return Object.assign({}, state, {
             isFetching: true,
-            providerToken: action.token,
+            token: action.token,
             user: action.decodedUser
           })
       default:

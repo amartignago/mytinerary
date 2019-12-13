@@ -26,7 +26,10 @@ const registerUser = (req, res) => {
 
         User.findOne({username: req.body.username}).then((user)=> {
             if(user!==null) return res.send({message: "the username already exists"}) // if username exists, provide error
-                const avatarPath = req.file.path
+                const avatarPath = null;
+                if (avatarPath) { 
+                    avatarPath = req.file.path
+                }
                 const hashedPassword = bcrypt.hashSync(req.body.password, 10) //else
                 User.create({
                     username: req.body.username,
@@ -106,7 +109,7 @@ const userRedirect = (req, res) => {
     const payload = {
         id: req.user.id,
         username: req.user.username,
-        // avatarPicture: user.avatarPath
+        avatarPicture: req.user.avatarPath
     };
     const options = {expiresIn: 2592000};
     

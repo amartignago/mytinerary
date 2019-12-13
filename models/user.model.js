@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
     firstName: String,
     lastName: String,
     country: String,
-    googleID: String
+    googleID: String,
+    favItins: [{type:mongoose.Schema.Types.ObjectId, ref:'itinerary'}]
 })
 
 

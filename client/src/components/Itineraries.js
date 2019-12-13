@@ -46,10 +46,12 @@ render() {
  
     return ( <div className="container">
         <Fragment>
+            {/* header */}
             <div className="container responsiveDiv mb-4 mt-4 text-center h-20"> 
                 {city.img && <img src={`${urlImages.urlImages}/images/cities/${city.img}`} className="img-fluid cityImg h-10 w-100" alt=" "/>}
                 <span><h2 className="overlayText text-center">{city.name}</h2></span>
             </div>
+            {/* itineraries list: */}
             <h3 className="text-center m-5">Available Mytineraries:</h3>
             {itineraries.map(itinerary =>     
             <Fragment> 
@@ -61,9 +63,15 @@ render() {
                             <span className="row userText m-0 p-0">{itinerary.userName}</span>
                         </div>
                         <div className="col-xs-9 flex-column mb-0 itinText d-flex justify-content-around">
-                            <div className="p-3 bd-highlight font-weight-bold">
-                                {itinerary.title}
+                            <div className="row container-fluid full-width">
+                                <div className="col-xs-5 p-3 bd-highlight font-weight-bold">
+                                    {itinerary.title}
+                                </div>
+                                <div className="col-xs-3 float-right">
+                                    <button>like me</button>
+                                </div>
                             </div>
+                            
                             <div className="p-3 d-flex justify-content-around">
                                 <span >Likes: {itinerary.rating}</span>
                                 <span >{itinerary.duration} hs</span>
@@ -75,6 +83,7 @@ render() {
                                 )}
                             </div>
                         </div>
+                    {/* activities & collapse button: */}
                     <div className="row col-xs-12 ml-0 pl-0 pr-0 mr-0 d-inline-block container-fluid">
                         <button id={itinerary._id} className="btn btn-light btn-block" onClick={()=>{this.toggle(itinerary._id)}}>View All</button>
                         <Expand open={this.state.open==itinerary._id && this.state.clicked==true}>            
@@ -94,15 +103,12 @@ render() {
  )}
 }
 
-
-const mapStateToProps = (state) => { // aca estoy pasando el state del storage como props para ESTE componente
+const mapStateToProps = (state) => { 
     console.log(state);
     return {
         itineraries: state.itinerariesReducer.itineraries,
         activities: state.activitiesReducer.activities,
         city: state.itinerariesReducer.city
-      
-        // cities: state.citiesReducer.cities.map(city => city.indexOf(city._id==this.props.match.params.cityID) )
     }
 }
 

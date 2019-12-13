@@ -1,4 +1,5 @@
 const fs = require ('fs')
+//rutas en mi servidor:
 const pathAct = './images/cities/activities/' ;
 const pathHead = './images/cities/headers/';
 const pathUser = './images/users/';

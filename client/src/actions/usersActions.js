@@ -68,27 +68,14 @@ export function fetchLogin (userFormData) { //user y pass
         })
       })
       .then(
-          userResponse => { return userResponse.json()}, //user info returned
+          userResponse => { return userResponse.json()}, 
+
+          //returns: { user: {db user info object}, "success", "token"}
           error => console.log('an error ocurred', error)
       )
-      .then( userJson => dispatch(sendUser(userJson)) //send that user info to redux
+      .then( userJson => dispatch(sendUser(userJson)) //send user token to redux
       )
   }
 }
 
-
-
-
-// export function fetchLoginGoogle (id) {
-//   return dispatch => {
-//       dispatch(requestUser(id))
-//       return fetch(`http://localhost:5000/auth/google/${id}`)
-//       .then(
-//           userResponse => userResponse.json(),
-//           error => console.log('an error ocurred', error)
-//       )
-//       .then( userJson => dispatch(sendUser(userJson))
-//       )
-//   }
-// }
 

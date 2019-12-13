@@ -33,7 +33,6 @@ class LoginForm extends Component {
         this.setState({
             redirect: true
         })
-        console.log(this.state.redirect)
       }
   
 
@@ -55,14 +54,14 @@ class LoginForm extends Component {
                 e.preventDefault()
             }
             e.preventDefault();
-        this.loginUser()
+        await this.loginUser()
     }
   
 
     render() { 
         const redirect  = this.state.redirect;
         if (redirect) {
-            return <Redirect to='/profile'/>;
+            return <Redirect to={`/profile/${this.props.token}`}/>;
         } else {         
             return ( <div className="text-center">
 
@@ -114,7 +113,7 @@ class LoginForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        user: state.userReducer.user,
+        token: state.userReducer.token
     }
 }
 
