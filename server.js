@@ -13,10 +13,10 @@ const itinerariesRouter = require('./routes/itinerary.routes')
 const imagesRouter = require('./routes/images.routes')
 const activityRouter = require('./routes/activity.routes')
 const userRouter = require('./routes/user.routes')
-
+const favsRouter = require('./routes/favourite.routes')
 app.use(passportSetup.initialize())
 app.use(bodyParser.json())
 app.use(cors());
-app.use(citiesRouter, itinerariesRouter, imagesRouter, activityRouter, userRouter);
+app.use(citiesRouter, itinerariesRouter, imagesRouter, activityRouter, userRouter, favsRouter);
 app.listen(port)
 

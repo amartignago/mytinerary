@@ -4,6 +4,7 @@ import '../styles/App.css'
 import {connect} from 'react-redux';
 import {fetchItineraries} from '../actions/itinerariesActions';
 import {fetchActivities} from '../actions/activitiesActions';
+import {fetchFav} from '../actions/favouritesActions';
 import PropTypes from 'prop-types';
 import Expand from 'react-expand-animated';
 import Activities from './Activities.js';
@@ -32,18 +33,24 @@ class Itineraries extends Component {
 
     componentDidMount() {
         let cityID = this.props.match.params.cityID;
-        console.log(cityID);
         this.props.dispatch(fetchItineraries(cityID))
-       .then(() => console.log(this.props))
+       .then(() => console.log('prueba', localStorage.getItem("user")))
     };
 
+    fetchFavFunction(itinID) {
+        if (localStorage.token) {
+            const token = localStorage.token
+            this.props.dispatch(fetchFav(token, itinID))
+        } else {
+            return null
+        }    
+    }
 
 render() { 
     const itineraries = this.props.itineraries
     const activities = this.props.activities
     const city = this.props.city
 
- 
     return ( <div className="container">
         <Fragment>
             {/* header */}
@@ -67,8 +74,11 @@ render() {
                                 <div className="col-xs-5 p-3 bd-highlight font-weight-bold">
                                     {itinerary.title}
                                 </div>
+                                {/* LIKE BUTTON: */}
                                 <div className="col-xs-3 float-right">
-                                    <button>like me</button>
+                                    <button id={itinerary._id} onClick={()=>{this.fetchFavFunction(itinerary._id)}}>
+                                        like me!
+                                    </button>
                                 </div>
                             </div>
                             
@@ -104,7 +114,6 @@ render() {
 }
 
 const mapStateToProps = (state) => { 
-    console.log(state);
     return {
         itineraries: state.itinerariesReducer.itineraries,
         activities: state.activitiesReducer.activities,

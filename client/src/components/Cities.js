@@ -40,7 +40,6 @@ render() {
 
 
 const mapStateToProps = (state) => { // state del storage como props para ESTE componente
-    console.log(state);
     return {
         cities: state.citiesReducer.cities // prop cities que va a ser manejada por X reducer
     }

@@ -20,6 +20,7 @@ class NavBar extends Component {
           <Dropdown.Menu>
             <Dropdown.Item  href="/login">Login</Dropdown.Item>
             <Dropdown.Item  href="/account">Create Account</Dropdown.Item>
+            {/* <Dropdown.Item  href="/profile">Profile</Dropdown.Item>  */}
           </Dropdown.Menu>
         </Dropdown>
       </div>

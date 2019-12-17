@@ -4,6 +4,7 @@ const upload = require ('../controllers/imageUploader')
 const passport = require('../passport')
 const jwt = require("jsonwebtoken")
 const key = require("../config/config")
+let jwtDecode = require('jwt-decode');
 
 // router.get("/users", userController.getUsers);
 
@@ -28,8 +29,13 @@ router.get("/auth/google", passport.authenticate('google', // first param: strat
 //google callback route (JWT)
 router.get("/auth/google/redirect", passport.authenticate('google',{ session: false }), userController.userRedirect); 
 
-//favourites routes
-// router.post("/users/favs/userID", userController.addFav)
+
+
+// router.get(
+//     "/users/favsss/:userID",  
+//     passport.authenticate("jwt", {failureRedirect: "http://localhost:3000/login", session: false}), 
+//     userController.getFavs
+// )
 
 module.exports = router
 

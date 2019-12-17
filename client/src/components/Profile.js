@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import NavBar from './NavBar.js'
 import '../styles/App.css'
 import {connect} from 'react-redux';
-import {storeTokenUser} from '../actions/usersActions';
+import {storeTokenUser, getFavs} from '../actions/usersActions';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom'
 import urlImages from './constants';
 import Image from 'react-bootstrap/Image';
+import Logout from './Logout'
 
-
-// import { resetState } from 'redux-localstore';
+//let localStorage = window.localStorage;
 
 let jwtDecode = require('jwt-decode');
 
@@ -26,37 +26,40 @@ class Profile extends Component {
         dispatch: PropTypes.func,
       }
     
-    //sacar la validacion del tipo de token a esta funcion
-    // validateTokenType (token) {
-    //     if(this.props.match.params.token && typeof this.props.match.params.token =='string') {
-        
-    //     }  
-    // }
+  
     decodeToken = (token) => {
        return jwtDecode(token)
     }
       
-    async sendUserToState() {  
+     async sendUserToState() {  
         if(this.props.match.params.token && typeof this.props.match.params.token =='string') {
             //if there is a token, and if the token is a string (not null or undefined), otherwise it breaks when render
-            const token = this.props.match.params.token
-            const decodedToken =  this.decodeToken(token) 
-            this.props.dispatch(storeTokenUser(token, decodedToken)) //store token and decoded info in redux state
+            const token = this.props.match.params.token;
+            const decodedToken =  this.decodeToken(token); 
+            await this.props.dispatch(storeTokenUser(token, decodedToken)); //store token and decoded info in redux state
+                //this.props.dispatch(getFavs(token, decodedToken.id))
+                localStorage.setItem('token', token)
+                localStorage.setItem('user', JSON.stringify(decodedToken))
+            console.log('hola', localStorage.user, localStorage.token)
+            
+         
         }
     }
 
-    componentDidMount() {
-        this.sendUserToState() 
+    async componentDidMount() {
+        await this.sendUserToState() 
     }
 
     render() { 
+        const favItinsInfo = this.props.favItinsInfo
+ 
         //check if there is a token and if it's a string:  (ver, validacion no funciona con token undefined) 
         if(this.props.match.params.token && typeof this.props.match.params.token =='string') { 
             const token = this.props.match.params.token
             const decodedToken =  this.decodeToken(token)
             const decodedImage = decodedToken.avatarPicture
             //check if the token is still valid:
-            if (new Date(decodedToken.exp*5000).toLocaleString("es-AR") > new Date().toLocaleString("es-AR")) {
+            if (new Date(decodedToken.exp*10000).toLocaleString("es-AR") > new Date().toLocaleString("es-AR")) {
                 // set user image
                 //1. default user image:
                 let imageToRender = `${urlImages.urlImages}/images/users/default-avatar.png` 
@@ -80,11 +83,17 @@ class Profile extends Component {
                                 <Image src={imageToRender} roundedCircle className="mb-3 userImg img-responsive center-block"/>
                             </div>
                             <span> hola soy {decodedToken.username}</span> 
-                            {/* <div>
-                                <button onClick = {this.logoutUser} >
-                                    Logout
-                                </button>
-                            </div> */}
+                        </div>
+                        <div>
+                            <h4>My Favourites:</h4>
+                                {/* {favItinsInfo.map(itinerary =>     
+                                    <div>
+                                        <h2>{itinerary.title}</h2>
+                                    </div> 
+                                )} */}
+                        </div>
+                        <div>
+                            <Logout/>
                         </div>
                 </div> )
             } else {
@@ -98,7 +107,8 @@ class Profile extends Component {
 
 const mapStateToProps = (state) => { 
     return {
-        //token is obtained by param, user info is obtained by decoding the token    
+        //token is obtained by param, user info is obtained by decoding the token
+        favItinsInfo: state.userReducer.userFavs    
     }
 } 
 

@@ -41,6 +41,7 @@ passport.use(new GoogleStrategy({
   function(accessToken, refreshToken, profile, done) {
     // check if user already exists
     User.findOne({googleID: profile.id})
+    
     .then((currentUser) => {
         if (currentUser) {
           return done (null, currentUser); // already have this user, done
@@ -49,7 +50,13 @@ passport.use(new GoogleStrategy({
             new User({
                 googleID: profile.id,
                 username: profile.displayName,
-                avatarPath: profile.photos[0].value
+                password: "",
+                avatarPath: profile.photos[0].value,
+                email: "",
+                firstName: profile.givenName,
+                lastName: profile.familyName,
+                country: "",
+                favItins: []
             })
             .save()
             .then((newUser) => {

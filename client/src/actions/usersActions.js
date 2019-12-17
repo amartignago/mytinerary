@@ -1,18 +1,18 @@
 import fetch from 'cross-fetch'
 
 export const REQUEST_USER ='REQUEST_USER'    
-export function requestUser(userFormData) {
+export function requestUser(userData) {
     return {
         type: REQUEST_USER,
-        userFormData
+        userData
     }
 }
 
 export const SEND_USER = 'SEND_USER'
-export function sendUser(userFormData) {
+export function sendUser(userData) {
   return {
       type: SEND_USER,
-      userFormData
+      userData
 
   }
 }
@@ -26,18 +26,27 @@ export function storeTokenUser(token, decodedUser) { //stores token and decoded 
   }
 }
 
+export const STORE_USER_FAVS = 'STORE_USER_FAVS'
+export function storeUserFavs(userData) { //stores token and decoded token user info 
+  return {
+      type: STORE_USER_FAVS,
+      userData
+  }
+}
+
+
 //register user action
-export function fetchNewUser (userFormData) {
+export function fetchNewUser (userData) {
   return dispatch => {   
       let formData = new FormData();
       let fileField = document.querySelector("input[type='file']");    
       // dispatch(requestUser(userFormData))
       // console.log(userFormData);
-        formData.append('username',userFormData.username);
-        formData.append('password',userFormData.password);
-        formData.append('email',userFormData.email);
-        formData.append('firstName',userFormData.firstName);
-        formData.append('lastName',userFormData.lastName)
+        formData.append('username',userData.username);
+        formData.append('password',userData.password);
+        formData.append('email',userData.email);
+        formData.append('firstName',userData.firstName);
+        formData.append('lastName',userData.lastName)
         formData.append('avatarImage', fileField.files[0]);
 
         return fetch('http://localhost:5000/users', {
@@ -54,9 +63,9 @@ export function fetchNewUser (userFormData) {
 }
 
 //local login Action
-export function fetchLogin (userFormData) { //user y pass
+export function fetchLogin (userData) { //user y pass
   return dispatch => {
-      dispatch(requestUser(userFormData)) //user y pass
+      dispatch(requestUser(userData)) //user y pass
       return fetch('http://localhost:5000/auth/login', {
         method: 'POST', 
         headers: {
@@ -64,12 +73,11 @@ export function fetchLogin (userFormData) { //user y pass
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            userFormData: userFormData //user y pass
+            userData: userData //user y pass
         })
       })
       .then(
           userResponse => { return userResponse.json()}, 
-
           //returns: { user: {db user info object}, "success", "token"}
           error => console.log('an error ocurred', error)
       )
@@ -78,4 +86,26 @@ export function fetchLogin (userFormData) { //user y pass
   }
 }
 
+//local login Action
+
+
+export function getFavs (token, userID) { 
+  return dispatch => {
+      // dispatch(requestUser(userFormData)) 
+      return fetch(`http://localhost:5000/users/favs/${userID}`, {
+        method: 'GET', 
+        headers: {
+          'Authorization': `bearer ${token}`,
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        }
+      })
+      .then(
+          response => { return response.json()},
+          error => console.log('an error ocurred', error)
+      )
+      .then( userJson => dispatch(storeUserFavs(userJson)) 
+      )
+  }
+}
 

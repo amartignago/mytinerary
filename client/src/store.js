@@ -3,24 +3,11 @@ import thunkMiddleware from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import rootReducer from './reducers/rootReducer'
 import { composeWithDevTools } from "redux-devtools-extension";
-import storeSynchronize from 'redux-localstore';
+import userReducer from './reducers/userReducer';
+
 
 const initState= {};
 const loggerMiddleware = createLogger()
-
-const store = createStore(
-  rootReducer,
-  initState,
-  composeWithDevTools(
-    applyMiddleware(
-      thunkMiddleware,
-      loggerMiddleware)    )
- );
-
-export default store
-storeSynchronize(store)
-
-//localStorage
 
 // export const loadState = () => {
 //   try {
@@ -34,7 +21,6 @@ storeSynchronize(store)
 //   }
 // }; 
 
-
 // export const saveState = (state) => {
 //   try {
 //     const serializedState = JSON.stringify(state);
@@ -42,16 +28,24 @@ storeSynchronize(store)
 //   } catch {
 //     // ignore write errors
 //   }
-// };
+// }
 
-// const persistedState = loadState();
+// const persistedState = loadState()
 
-// const store = createStore(
-//   app,
-//   persistedState
-// );
-// store.subscribe(() => {
-//   saveState({
-//     todos: store.getState().todos
-//   });
-// });
+const store = createStore(
+  rootReducer,
+  initState,
+  composeWithDevTools(
+    applyMiddleware(
+      thunkMiddleware,
+      loggerMiddleware)
+  )
+);
+
+// store.subscribe( function () {
+//   saveState(store.getState(userReducer))
+// })
+
+
+export default store
+

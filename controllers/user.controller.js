@@ -3,6 +3,10 @@ const bcrypt = require('bcryptjs')
 const key = require("../config/config")
 const jwt = require("jsonwebtoken")
 const userModel = require ('../models/user.model')
+const itineraryModel = require ('../models/itinerary.model')
+const passport = require('../passport')
+
+let jwtDecode = require('jwt-decode');
 
 //list of all users:
 const getUsers = (req, res) => {
@@ -52,13 +56,13 @@ const registerUser = (req, res) => {
 const loginUser = (req, res) => {
     console.log('body')
     console.log(req.body)
-    User.findOne({username: req.body.userFormData.username})
+    User.findOne({username: req.body.userData.username})
     .then((user)=> {
         console.log(user)
         if (user==null) {//if user don't exist
             return res.status(402).send('Enter a valid username'); 
         } else { //if user exists, compare pass with hash
-            if (bcrypt.compareSync(req.body.userFormData.password, user.password)) { //if true
+            if (bcrypt.compareSync(req.body.userData.password, user.password)) { //if true
                 const payload = {
                     id: user.id,
                     username: user.username,
@@ -109,9 +113,12 @@ const userRedirect = (req, res) => {
     const payload = {
         id: req.user.id,
         username: req.user.username,
-        avatarPicture: req.user.avatarPath
+        avatarPicture: req.user.avatarPath,
+        firstName: req.user.firstName,
+        lastName: req.user.lastName,
+        favItins: req.user.favItins
     };
-    const options = {expiresIn: 2592000};
+    const options = {expiresIn: 600};
     
     jwt.sign(
     payload,
@@ -136,13 +143,46 @@ const userRedirect = (req, res) => {
     )
 };
 
+//add itin to favourites:
+const addFavs = function (req, res) {
+    const token = req.headers.authorization.split(" ")[1];
+    const user = req.user
+    const itinID = req.params.itinID
+    userModel.findOneAndUpdate({_id: user._id}, {$push: {favItins: itinID}})
+           .then((user) =>{res.json(user).status(204)
+       })
+       .catch((err) => {res.json(err).status(404)})
+}
 
-const getUserGoogle = (req,res) =>{
-    let userRequested = req.params._id;  
-    User
-    .findOne({_id:userRequested})
-    .then((user)=>{res.json(user).status(204)}
-)}; 
+const updateFavs = function (req, res) {
+    // const token = req.headers.authorization.split(" ")[1];
+    const user = req.user
+    const itinID = req.params.itinID
+    userModel.findById({_id: user._id})
+    .then((user) => {
+        if(user.favItins.includes(itinID)){
+            userModel.updateOne({ _id: user._id },{$pull: {favItins: {$elemMatch: {_id: itinID}}}})
+            .then((user) =>{res.json(user).status(204)
+            })
+            .catch((err) => {res.json(err).status(404)})
+        }else {
+            userModel.updateOne({ _id: user._id },{$push: {favItins: itinID}})
+            .then((user) =>{res.json(user).status(204)
+            })
+            .catch((err) => {res.json(err).status(404)})
+        }
+    })
+    .catch((err) => {res.json(err).status(404)})
+}
+
+//get favourites
+const getFavs = (req, res) => {
+    userModel
+    .findById({_id: req.params.userID})
+    .populate("favItins")
+    .then(((user)=>{res.send(user.favItins).status(204)}))
+    .catch(err => res.status(404).json({ error: "an error ocurred" }));
+}
 
 
 module.exports = {
@@ -151,5 +191,7 @@ module.exports = {
     loginUser,
     getUserData,
     userRedirect,
-    getUserGoogle
+    addFavs,
+    getFavs,
+    updateFavs    
 }

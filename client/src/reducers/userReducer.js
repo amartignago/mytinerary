@@ -1,20 +1,13 @@
-import {SEND_USER, REQUEST_USER, STORE_TOKEN_USER} from '../actions/usersActions'
-import { defineState } from 'redux-localstore';
-
-//TO RESET THE STATE:
-//import { resetState } from 'redux-localstore';
- 
-//resetState();
+import {SEND_USER, REQUEST_USER, STORE_TOKEN_USER, STORE_USER_FAVS} from '../actions/usersActions'
 
 const initState= {
   isFetching: false,
   user:{},
+  userFavs: [],
   token: "",
   success: false,
   error: false
 }
-
-// const initState = defineState(defaultState)('userReducer')
 
 function userReducer(state = initState, action
   ) {
@@ -26,16 +19,21 @@ function userReducer(state = initState, action
       case SEND_USER: 
         return Object.assign({}, state, {
           isFetching: false,
-          user: action.userFormData,
-          token: action.userFormData.token,
+          user: action.userData,
+          token: action.userData.token,
           success: true
         })
       case STORE_TOKEN_USER:
           return Object.assign({}, state, {
-            isFetching: true,
+            isFetching: false,
             token: action.token,
             user: action.decodedUser
           })
+      case STORE_USER_FAVS:
+        return Object.assign({}, state, {
+          isFetching: false,
+          userFavs: action.userData
+        })
       default:
         return state
     }

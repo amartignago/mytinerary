@@ -22,7 +22,6 @@ export function receiveItineraries(id, json) {
 export function fetchItineraries (id) {
     return dispatch => {       
         dispatch(requestItineraries(id))
-        console.log(id);
         return fetch('http://localhost:5000/cities/' + id)
         .then(
            itinerariesResponse => { return itinerariesResponse.json()},

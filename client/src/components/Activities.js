@@ -66,7 +66,6 @@ class Activities extends Component {
 }
 
 const mapStateToProps = (state) => { 
-  console.log(state);
   return {
       activities: state.activitiesReducer.activities
   }
