@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import circledRight from '../images/circled-right-2.png';
 import '../styles/App.css';
+import LoginButton from './LoginButton'
 import {
   Link
 } from "react-router-dom";
@@ -18,8 +19,9 @@ class BrowsingMenu extends Component {
           <span>Want to build your own Mytinerary?</span>
         </div>
         <div className="d-flex justify-content-around">
-          <Link to="/login">Log in</Link>
-          <Link to="/Account">Account</Link>
+          <LoginButton></LoginButton>
+          <Link to="/Account">Account</Link> 
+          {/* crear componente para account button */}
         </div>
       </div>
 

@@ -5,6 +5,7 @@ import Itineraries from '../components/Itineraries.js';
 import Account from '../components/Account.js';
 import Home from '../components/Home.js';
 import Profile from '../components/Profile'
+
 import '../styles/App.css';
 import {
   Switch,
@@ -18,7 +19,8 @@ const routes = () => (
       <Route path="/login" component = {Login} />
       <Route exact path="/cities" component = {Cities} />
       <Route path="/cities/:cityID" component = {Itineraries} />
-      <Route exact path="/profile/:token?" component = {Profile}/>
+      <Route exact path="/profile/:token" component = {Profile}/>
+      
     
     </Switch>
 )

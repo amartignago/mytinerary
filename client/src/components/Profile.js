@@ -17,6 +17,7 @@ class Profile extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            
         }
 
     this.sendUserToState = this.sendUserToState.bind(this);
@@ -33,16 +34,15 @@ class Profile extends Component {
       
      async sendUserToState() {  
         if(this.props.match.params.token && typeof this.props.match.params.token =='string') {
+            const token=this.props.match.params.token;
             //if there is a token, and if the token is a string (not null or undefined), otherwise it breaks when render
-            const token = this.props.match.params.token;
             const decodedToken =  this.decodeToken(token); 
             await this.props.dispatch(storeTokenUser(token, decodedToken)); //store token and decoded info in redux state
                 //this.props.dispatch(getFavs(token, decodedToken.id))
                 localStorage.setItem('token', token)
                 localStorage.setItem('user', JSON.stringify(decodedToken))
+                localStorage.setItem('loggedIn', true)
             console.log('hola', localStorage.user, localStorage.token)
-            
-         
         }
     }
 
@@ -52,14 +52,16 @@ class Profile extends Component {
 
     render() { 
         const favItinsInfo = this.props.favItinsInfo
- 
+        if(typeof this.props.match.params.token ==undefined) {
+            return (<Redirect to='/login'/>)
+        } else {
         //check if there is a token and if it's a string:  (ver, validacion no funciona con token undefined) 
         if(this.props.match.params.token && typeof this.props.match.params.token =='string') { 
             const token = this.props.match.params.token
             const decodedToken =  this.decodeToken(token)
             const decodedImage = decodedToken.avatarPicture
             //check if the token is still valid:
-            if (new Date(decodedToken.exp*10000).toLocaleString("es-AR") > new Date().toLocaleString("es-AR")) {
+            if (new Date(decodedToken.exp*20000).toLocaleString("es-AR") > new Date().toLocaleString("es-AR")) {
                 // set user image
                 //1. default user image:
                 let imageToRender = `${urlImages.urlImages}/images/users/default-avatar.png` 
@@ -103,7 +105,7 @@ class Profile extends Component {
             return (<Redirect to='/login'/>)
         }
     }
-}
+}}
 
 const mapStateToProps = (state) => { 
     return {

@@ -75,6 +75,7 @@ const loginUser = (req, res) => {
                 options,
                 (err, token) => {
                     if(err){
+                        console.log('prueba')
                      return res.json({
                         user: payload,
                         success: false,
@@ -118,7 +119,7 @@ const userRedirect = (req, res) => {
         lastName: req.user.lastName,
         favItins: req.user.favItins
     };
-    const options = {expiresIn: 600};
+    const options = {expiresIn: 2000};
     
     jwt.sign(
     payload,
@@ -136,53 +137,12 @@ const userRedirect = (req, res) => {
             // payload: payload,
             // success: true,
             // token: token});
-            // console.log(res)
+            // console.log('login google back ok')
             res.redirect(`http://localhost:3000/profile/${token}`) 
         }
     }
     )
 };
-
-//add itin to favourites:
-const addFavs = function (req, res) {
-    const token = req.headers.authorization.split(" ")[1];
-    const user = req.user
-    const itinID = req.params.itinID
-    userModel.findOneAndUpdate({_id: user._id}, {$push: {favItins: itinID}})
-           .then((user) =>{res.json(user).status(204)
-       })
-       .catch((err) => {res.json(err).status(404)})
-}
-
-const updateFavs = function (req, res) {
-    // const token = req.headers.authorization.split(" ")[1];
-    const user = req.user
-    const itinID = req.params.itinID
-    userModel.findById({_id: user._id})
-    .then((user) => {
-        if(user.favItins.includes(itinID)){
-            userModel.updateOne({ _id: user._id },{$pull: {favItins: {$elemMatch: {_id: itinID}}}})
-            .then((user) =>{res.json(user).status(204)
-            })
-            .catch((err) => {res.json(err).status(404)})
-        }else {
-            userModel.updateOne({ _id: user._id },{$push: {favItins: itinID}})
-            .then((user) =>{res.json(user).status(204)
-            })
-            .catch((err) => {res.json(err).status(404)})
-        }
-    })
-    .catch((err) => {res.json(err).status(404)})
-}
-
-//get favourites
-const getFavs = (req, res) => {
-    userModel
-    .findById({_id: req.params.userID})
-    .populate("favItins")
-    .then(((user)=>{res.send(user.favItins).status(204)}))
-    .catch(err => res.status(404).json({ error: "an error ocurred" }));
-}
 
 
 module.exports = {
@@ -190,8 +150,5 @@ module.exports = {
     registerUser,
     loginUser,
     getUserData,
-    userRedirect,
-    addFavs,
-    getFavs,
-    updateFavs    
+    userRedirect 
 }

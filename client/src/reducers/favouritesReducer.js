@@ -1,4 +1,4 @@
-import {REQ_FAV, SEND_FAV} from '../actions/favouritesActions'
+import {REQ_FAV, SEND_FAV, SEND_ALL_FAVS} from '../actions/favouritesActions'
 
 const initState= {
   userID: "",
@@ -20,6 +20,11 @@ function favouritesReducer(state = initState, action
         itinID: action.favData.itinID,
         liked: action.favData.liked
       })
+      case SEND_ALL_FAVS:
+        return Object.assign({}, state, {
+          isFetching: false,
+          itinFavs: action.favsData
+        })
     default:
       return state
   }

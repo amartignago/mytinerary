@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken")
 const key = require("../config/config")
 let jwtDecode = require('jwt-decode');
 
-// router.get("/users", userController.getUsers);
+router.get("/users", userController.getUsers);
 
 //User registration
 router.post("/users", upload.single('avatarImage'), userController.registerUser); //utilizo campo del formulario del front

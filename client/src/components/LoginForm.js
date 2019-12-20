@@ -10,8 +10,6 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom'
 
-let jwtDecode = require('jwt-decode');
-
 class LoginForm extends Component {
     constructor(props) {
         super(props);
@@ -24,15 +22,19 @@ class LoginForm extends Component {
 
         this.loginUser = this.loginUser.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
+
     }
   
+
     async loginUser() {
         await this.props.dispatch(fetchLogin(this.state));
         //validar la res que me viene del back, si no esta ok por user o pass, mostrar mensaje;   
         //si esta ok:
+        console.log('ok')
         this.setState({
             redirect: true
         })
+        console.log(this.state.redirect)
       }
   
 
@@ -46,7 +48,7 @@ class LoginForm extends Component {
       });
     }
 
-    async handleForm(e){
+     handleForm(e){
             if(
                 this.state.username =="" ||
                 this.state.password =="" 
@@ -54,9 +56,8 @@ class LoginForm extends Component {
                 e.preventDefault()
             }
             e.preventDefault();
-        await this.loginUser()
+         this.loginUser()
     }
-  
 
     render() { 
         const redirect  = this.state.redirect;
