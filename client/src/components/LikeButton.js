@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {fetchFav} from '../actions/favouritesActions';
-import {checkIsFav} from '../actions/favouritesActions';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
@@ -25,7 +24,6 @@ class LikeButton extends Component {
             const token = localStorage.token
             await this.props.dispatch(fetchFav(token, itinID));
             this.checkIsFav()
-            console.log(this.props.favourites.liked);
         } else {
             return null
         }

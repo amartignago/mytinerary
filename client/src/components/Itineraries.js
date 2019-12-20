@@ -1,11 +1,8 @@
 import React, {Component, Fragment} from 'react';
-import NavBar from './NavBar.js'
 import '../styles/App.css'
 import {connect} from 'react-redux';
 import {fetchItineraries} from '../actions/itinerariesActions';
 import {fetchActivities} from '../actions/activitiesActions';
-import {fetchFav} from '../actions/favouritesActions';
-import {fetchUserFavs} from '../actions/favouritesActions';
 import PropTypes from 'prop-types';
 import Expand from 'react-expand-animated';
 import Activities from './Activities.js';
@@ -34,22 +31,7 @@ class Itineraries extends Component {
         this.props.dispatch(fetchActivities(itinID));
     }
 
-    // //get user favs (to show which itineraries are already in favourites):
-    //  fetchAllFavsFunction(userID) {
-    //     if (localStorage.token) {
-    //         const token = localStorage.token
-    //          this.props.dispatch(fetchUserFavs(token, userID))
-    //     } else {
-    //         return null
-    //     }    
-    // }
-
-
-
     async componentDidMount() {
-       
-        // const userID =JSON.parse(localStorage.getItem("user")).id    
-        // await this.fetchAllFavsFunction(userID);
         let cityID = this.props.match.params.cityID;
         await this.props.dispatch(fetchItineraries(cityID));
     }

@@ -4,10 +4,8 @@ import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import '../styles/App.css'
-import {Link} from "react-router-dom";
 import {fetchLogin} from '../actions/usersActions';
 import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom'
 
 class LoginForm extends Component {
@@ -30,11 +28,10 @@ class LoginForm extends Component {
         await this.props.dispatch(fetchLogin(this.state));
         //validar la res que me viene del back, si no esta ok por user o pass, mostrar mensaje;   
         //si esta ok:
-        console.log('ok')
         this.setState({
             redirect: true
         })
-        console.log(this.state.redirect)
+        console.log('loginUser redirect:', this.state.redirect)
       }
   
 
@@ -63,6 +60,7 @@ class LoginForm extends Component {
         const redirect  = this.state.redirect;
         if (redirect) {
             return <Redirect to={`/profile/${this.props.token}`}/>;
+            // no esta redireccionando, quizas sea la validacion en Profile (pero estoy mandando token valido)
         } else {         
             return ( <div className="text-center">
 

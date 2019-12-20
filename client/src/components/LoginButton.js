@@ -7,6 +7,7 @@ class LoginButton extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            name: "Login",
             href: `/login`
         }
     }
@@ -18,14 +19,17 @@ class LoginButton extends Component {
          if  (new Date(jwtDecode(localStorage.token).exp*20000).toLocaleString("es-AR") > new Date().toLocaleString("es-AR")) {
             
             this.setState({
-              href: `/profile/${localStorage.token}`
+               name: 'Profile',
+               href: `/profile/${localStorage.token}`
+             
             })
          
-            console.log(this.state)
+            console.log('paso por aca')
             }  else {
             console.log('token vencido')
             } 
         }
+        console.log('no hay token')
     }
       
     componentDidMount() {
@@ -36,11 +40,11 @@ class LoginButton extends Component {
     render() 
         { return ( 
             <div className="text-center mt-4">
-                 <Link to={this.state.href}>Login</Link>
-                 {/* agregar codigo para mostrar "login" o "profile" dependiendo de token valido si o no */}
+                 <Link to={this.state.href}>
+                     {this.state.name}
+                 </Link>
             </div>
-);
-}
+        )}
 }
 
 export default LoginButton;

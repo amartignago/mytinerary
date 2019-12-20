@@ -16,8 +16,7 @@ let jwtDecode = require('jwt-decode');
 class Profile extends Component {
     constructor(props) {
         super(props)
-        this.state = {
-            
+        this.state = { 
         }
 
     this.sendUserToState = this.sendUserToState.bind(this);
@@ -37,22 +36,24 @@ class Profile extends Component {
             const token=this.props.match.params.token;
             //if there is a token, and if the token is a string (not null or undefined), otherwise it breaks when render
             const decodedToken =  this.decodeToken(token); 
+            console.log(decodedToken)
             await this.props.dispatch(storeTokenUser(token, decodedToken)); //store token and decoded info in redux state
                 //this.props.dispatch(getFavs(token, decodedToken.id))
                 localStorage.setItem('token', token)
                 localStorage.setItem('user', JSON.stringify(decodedToken))
                 localStorage.setItem('loggedIn', true)
-            console.log('hola', localStorage.user, localStorage.token)
         }
     }
 
     async componentDidMount() {
         await this.sendUserToState() 
+        // Aca falta el fetch a getFavs para tener la info de los itinerarios favs del usuario y renderizarlo
     }
 
     render() { 
         const favItinsInfo = this.props.favItinsInfo
         if(typeof this.props.match.params.token ==undefined) {
+            console.log('intentando renderizar perfil', this.props.match.params.token)
             return (<Redirect to='/login'/>)
         } else {
         //check if there is a token and if it's a string:  (ver, validacion no funciona con token undefined) 
@@ -84,17 +85,13 @@ class Profile extends Component {
                             <div className="text-center">
                                 <Image src={imageToRender} roundedCircle className="mb-3 userImg img-responsive center-block"/>
                             </div>
-                            <span> hola soy {decodedToken.username}</span> 
+                            <h3> {decodedToken.username}</h3> 
                         </div>
-                        <div>
+                        <div >
                             <h4>My Favourites:</h4>
-                                {/* {favItinsInfo.map(itinerary =>     
-                                    <div>
-                                        <h2>{itinerary.title}</h2>
-                                    </div> 
-                                )} */}
+                                {/* Inserte info de favoritos aqui */}
                         </div>
-                        <div>
+                        <div className="text-center"> 
                             <Logout/>
                         </div>
                 </div> )
@@ -110,21 +107,8 @@ class Profile extends Component {
 const mapStateToProps = (state) => { 
     return {
         //token is obtained by param, user info is obtained by decoding the token
-        favItinsInfo: state.userReducer.userFavs    
+        favItinsInfo: state.userReducer.favItins    
     }
 } 
 
 export default connect(mapStateToProps)(Profile); // 
-
-
-//clean local storage:
-//const storedToken = localStorage.getItem("token");
-// if (storedToken){
-//     let decodedData = decode(storedToken, { header: true });
-//     let expirationDate = decodedData.exp;
-//      var current_time = Date.now() / 1000;
-//      if(expirationDate < current_time)
-//      {
-//          localStorage.removeItem("token");
-//      }
-//   }

@@ -1,6 +1,7 @@
 // controlador se conecta con el modelo. Aca iria mi procesamiento de la info, el find cuando lo tenga
 const FavouriteModel = require("../models/favourite.model")
 
+//get all user favs
 const getFavs = function (req, res) {
     const user = req.params.userID
     FavouriteModel.find({userID: user})
@@ -11,6 +12,7 @@ const getFavs = function (req, res) {
     })
 }
 
+//check if the itin is in favs
 const checkItinIsFav  = function (req, res) {
     const user = req.params.userID
     const itinID = req.params.itinID
@@ -22,6 +24,7 @@ const checkItinIsFav  = function (req, res) {
     })
 }
 
+//update itin fav onclick
 const updateFavs = function (req, res) {
     const token = req.headers.authorization.split(" ")[1];
     const user = req.user
