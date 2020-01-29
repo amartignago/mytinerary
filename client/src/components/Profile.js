@@ -36,7 +36,6 @@ class Profile extends Component {
             const token=this.props.match.params.token;
             //if there is a token, and if the token is a string (not null or undefined), otherwise it breaks when render
             const decodedToken =  this.decodeToken(token); 
-            console.log(decodedToken)
             await this.props.dispatch(storeTokenUser(token, decodedToken)); //store token and decoded info in redux state
                 //this.props.dispatch(getFavs(token, decodedToken.id))
                 localStorage.setItem('token', token)
@@ -53,7 +52,7 @@ class Profile extends Component {
     render() { 
         const favItinsInfo = this.props.favItinsInfo
         if(typeof this.props.match.params.token ==undefined) {
-            console.log('intentando renderizar perfil', this.props.match.params.token)
+            console.log('redirijo a login al inicio')
             return (<Redirect to='/login'/>)
         } else {
         //check if there is a token and if it's a string:  (ver, validacion no funciona con token undefined) 
@@ -62,10 +61,11 @@ class Profile extends Component {
             const decodedToken =  this.decodeToken(token)
             const decodedImage = decodedToken.avatarPicture
             //check if the token is still valid:
-            if (new Date(decodedToken.exp*20000).toLocaleString("es-AR") > new Date().toLocaleString("es-AR")) {
+            if (new Date(decodedToken.exp*50000).toLocaleString("es-AR") > new Date().toLocaleString("es-AR")) {
                 // set user image
                 //1. default user image:
                 let imageToRender = `${urlImages.urlImages}/images/users/default-avatar.png` 
+                console.log('decoded image', decodedImage)
                 if (decodedImage==null || decodedImage==undefined ) {
                     //2. avoid nulls & undefined:
                     imageToRender = imageToRender
@@ -81,7 +81,7 @@ class Profile extends Component {
                     <div className="container">
                         <NavBar/>
                         <div className="text-center">
-                            <h1 className="h1Title mb-4">Profile Page</h1>
+                            <h1 className="h1Title mb-4">My Profile</h1>
                             <div className="text-center">
                                 <Image src={imageToRender} roundedCircle className="mb-3 userImg img-responsive center-block"/>
                             </div>
@@ -89,6 +89,7 @@ class Profile extends Component {
                         </div>
                         <div >
                             <h4>My Favourites:</h4>
+                                <p>coming soon</p>
                                 {/* Inserte info de favoritos aqui */}
                         </div>
                         <div className="text-center"> 
@@ -96,9 +97,11 @@ class Profile extends Component {
                         </div>
                 </div> )
             } else {
+                console.log('redirijo porque expiro el token')
                 return (<Redirect to='/login'/>)
             }
         } else {
+            console.log('redrijo porque no paso validacion si hay token y es string')
             return (<Redirect to='/login'/>)
         }
     }

@@ -31,7 +31,6 @@ class LoginForm extends Component {
         this.setState({
             redirect: true
         })
-        console.log('loginUser redirect:', this.state.redirect)
       }
   
 
