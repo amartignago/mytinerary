@@ -22,7 +22,7 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 ----
 Notas:
 
-**/config/config.js is where the credentials are and it has not been uploaded
+**/config/config.js is where the credentials should be
 
 **For testing, only cities that start with a "B", and "Gaudi in a day" Activity from Barcelona have images to show  
 

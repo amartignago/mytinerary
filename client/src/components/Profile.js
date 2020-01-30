@@ -12,6 +12,7 @@ import Logout from './Logout'
 //let localStorage = window.localStorage;
 
 let jwtDecode = require('jwt-decode');
+const now = (Date.now().valueOf() / 1000)
 
 class Profile extends Component {
     constructor(props) {
@@ -28,7 +29,12 @@ class Profile extends Component {
     
   
     decodeToken = (token) => {
-       return jwtDecode(token)
+        if (token == undefined) {
+            console.log('token is undefined')
+           
+        } else {
+            return jwtDecode(token)
+        }
     }
       
      async sendUserToState() {  
@@ -60,12 +66,13 @@ class Profile extends Component {
             const token = this.props.match.params.token
             const decodedToken =  this.decodeToken(token)
             const decodedImage = decodedToken.avatarPicture
+            const tokenTimeOut = decodedToken.exp
             //check if the token is still valid:
-            if (new Date(decodedToken.exp*50000).toLocaleString("es-AR") > new Date().toLocaleString("es-AR")) {
+            //console.log( 'token', tokenTimeOut, 'now', now)
+            if ( tokenTimeOut > now) {
                 // set user image
                 //1. default user image:
                 let imageToRender = `${urlImages.urlImages}/images/users/default-avatar.png` 
-                console.log('decoded image', decodedImage)
                 if (decodedImage==null || decodedImage==undefined ) {
                     //2. avoid nulls & undefined:
                     imageToRender = imageToRender
@@ -97,11 +104,11 @@ class Profile extends Component {
                         </div>
                 </div> )
             } else {
-                console.log('redirijo porque expiro el token')
+                console.log('redirijo porque expiro el token ', tokenTimeOut, 'ahora:', now)
                 return (<Redirect to='/login'/>)
             }
         } else {
-            console.log('redrijo porque no paso validacion si hay token y es string')
+            console.log('redrijo porque no paso validacion "si hay token y es string"')
             return (<Redirect to='/login'/>)
         }
     }

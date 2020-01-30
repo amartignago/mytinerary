@@ -43,7 +43,7 @@ class Itineraries extends Component {
         
         return ( <div className="container">
             <Fragment>
-                {/* header */}
+                {/* City header */}
                 <div className="container responsiveDiv mb-4 mt-4 text-center h-20"> 
                     {city.img && <img src={`${urlImages.urlImages}/images/cities/${city.img}`} className="img-fluid cityImg h-10 w-100" alt=" "/>}
                     <span><h2 className="overlayText text-center">{city.name}</h2></span>

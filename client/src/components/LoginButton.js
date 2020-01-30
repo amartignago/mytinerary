@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import '../styles/App.css'
 import {Link} from "react-router-dom";
 
+const now = new Date().toLocaleString("es-AR")
 
 class LoginButton extends Component {
     constructor(props) {
@@ -16,20 +17,18 @@ class LoginButton extends Component {
   
         if ((localStorage.token)) {
         const jwtDecode = require('jwt-decode');
-         if  (new Date(jwtDecode(localStorage.token).exp*20000).toLocaleString("es-AR") > new Date().toLocaleString("es-AR")) {
+            if  (new Date(jwtDecode(localStorage.token).exp*20000).toLocaleString("es-AR") > now) {
             
-            this.setState({
-               name: 'Profile',
-               href: `/profile/${localStorage.token}`
-             
-            })
-         
-            console.log('paso por aca')
+                this.setState({
+                name: 'Profile',
+                href: `/profile/${localStorage.token}`
+                
+                })
             }  else {
-            console.log('token vencido')
+            // console.log('token vencido')
             } 
         }
-        console.log('no hay token')
+        // console.log('no hay token')
     }
       
     componentDidMount() {
