@@ -10,8 +10,8 @@ class CitiesFilter extends Component {
     constructor(props) {
       super(props) //la lista de ciudades que le paso como props en Cities
       this.state = {
-        visibleCities: [], //estoy haciendo una "copia" del store aca o estoy accediendo al orishinal?
-        citiesFilter: "" //el value que toma el input en linea 24, cuando el value cambie aplicar handleChange al state
+        visibleCities: [], 
+        citiesFilter: "" 
         }
     };    
 
@@ -25,7 +25,7 @@ class CitiesFilter extends Component {
     render() {
       return (<div className="mb-4">
         <div>
-          <label htmlFor="filter" className="mt-1 mr-3 mb-4">Find City by Name: </label>
+          <label htmlFor="filter" className="mt-1 mr-3 mb-4"> City Name... </label>
           <input type="text" id="filter" 
             value={this.state.citiesFilter} //cuando este valor cambia ejecuta handlechange)
             onChange={this.handleChange}/> 

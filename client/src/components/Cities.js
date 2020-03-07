@@ -28,7 +28,7 @@ render() {
     return ( <div className="container">
         <NavBar/>
         <div className="text-center">
-            <h1 className="h1Title mb-4">Cities Page</h1>
+            <h1 className="h1Title mb-4">Find your City!</h1>
             <div>
             <CitiesFilter cities = {cities}/>
             </div>
