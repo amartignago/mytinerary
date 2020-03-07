@@ -2,6 +2,7 @@
 
 ## How to start
 
+* Install NodeJS https://nodejs.org/es/download/
 * Complete the configuration in ``./config/config.js``.
 * Install dependencies:
   ```sh
