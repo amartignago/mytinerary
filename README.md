@@ -15,3 +15,4 @@
   ```sh
   npm run dev
   ```
+* The project is under development, please use the city "Barcelona" to test the itineraries page, is the only one with data to show
