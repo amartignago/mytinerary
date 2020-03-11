@@ -77,7 +77,13 @@ export function fetchLogin (userData) { //user y pass
         })
       })
       .then(
-          userResponse => { return userResponse.json()}, 
+          userResponse => { 
+            if(userResponse.ok) {
+              return userResponse.json()} 
+            else {
+              console.log('resp de login no ok')
+              return userResponse
+            }}, 
           //returns: { user: {db user info object}, "success", "token"}
           error => console.log('an error ocurred', error)
       )

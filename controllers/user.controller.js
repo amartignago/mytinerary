@@ -54,48 +54,49 @@ const registerUser = (req, res) => {
 
 //user local login w token
 const loginUser = (req, res) => {
-    console.log('body')
-    console.log(req.body)
     User.findOne({username: req.body.userData.username})
     .then((user)=> {
-        console.log(user)
         if (user==null) {//if user don't exist
+            //por esta validacion pasa ok
             return res.status(402).send('Enter a valid username'); 
         } else { //if user exists, compare pass with hash
             if (bcrypt.compareSync(req.body.userData.password, user.password)) { //if true
                 const payload = {
+                    success: true,
                     id: user.id,
                     username: user.username,
                     avatarPicture: user.avatarPath
                 };
                 const options = {expiresIn: 2592000};
                 jwt.sign(
-                payload,
-                key.secretOrKey,
-                options,
-                (err, token) => {
-                    if(err){
-                     return res.json({
-                        user: payload,
-                        success: false,
-                        token: "There was an error"
-                    });
-                    }else {
-                     return res.json({
-                        user: payload,
-                        success: true,
-                        token: token
-                    });
+                    payload,
+                    key.secretOrKey,
+                    options,
+                    (err, token) => {
+                        if(err){
+                            console.log('error de token')
+                            return res.json({
+                                user: payload,
+                                success: false,
+                                token: "There was an error"
+                        });
+                        }else {
+                            return res.json({
+                                user: payload,
+                                success: true,
+                                token: token
+                            });
+                        }
                     }
-                }
                 )
             } else {
+                //esto funciona!!
                 return res.status(402).send({message: "wrong password"}); 
             }
         }      
     })
     .catch((err) => { 
-    res.json(err).status(500)
+        res.json(err).status(500)
     }) 
 }  
 //local login get user data
@@ -125,7 +126,7 @@ const userRedirect = (req, res) => {
     key.secretOrKey,
     options,
     (err, token) => {
-        if(err){
+        if(err || token == undefined)  {
          return res.json({
             payload:payload,
             success: false,

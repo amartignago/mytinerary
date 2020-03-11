@@ -24,10 +24,11 @@ class LoginForm extends Component {
     }
   
 
-    async loginUser() {
+    async loginUser(userData) {
         await this.props.dispatch(fetchLogin(this.state));
-        //validar la res que me viene del back, si no esta ok por user o pass, mostrar mensaje;   
-        //si esta ok:
+        console.log(userData)
+        //como agarro la res que me viene del fetch redux?
+        //
         this.setState({
             redirect: true
         })

@@ -19,9 +19,9 @@ function userReducer(state = initState, action
       case SEND_USER: 
         return Object.assign({}, state, {
           isFetching: false,
-          user: action.userData,
+          user: action.userData, //esto es lo que viene con la res de la api
           token: action.userData.token,
-          success: true
+          success: action.userData.ok 
         })
       case STORE_TOKEN_USER:
           return Object.assign({}, state, {
