@@ -5,7 +5,6 @@ const initState= {
   user:{},
   userFavs: [],
   token: "",
-  success: false,
   error: false
 }
 
@@ -19,9 +18,9 @@ function userReducer(state = initState, action
       case SEND_USER: 
         return Object.assign({}, state, {
           isFetching: false,
-          user: action.userData, //esto es lo que viene con la res de la api
-          token: action.userData.token,
-          success: action.userData.ok 
+          user: action.userData, //api response
+          token: action.userData.token, 
+          //success viene en userData.success
         })
       case STORE_TOKEN_USER:
           return Object.assign({}, state, {

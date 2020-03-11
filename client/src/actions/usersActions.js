@@ -13,7 +13,6 @@ export function sendUser(userData) {
   return {
       type: SEND_USER,
       userData
-
   }
 }
 

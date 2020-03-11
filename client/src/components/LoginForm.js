@@ -24,14 +24,13 @@ class LoginForm extends Component {
     }
   
 
-    async loginUser(userData) {
+    async loginUser() {
         await this.props.dispatch(fetchLogin(this.state));
-        console.log(userData)
-        //como agarro la res que me viene del fetch redux?
-        //
-        this.setState({
-            redirect: true
-        })
+            if (this.props.success) { //
+                this.setState({
+                    redirect: true
+                })    
+            }        
       }
   
 
@@ -60,7 +59,6 @@ class LoginForm extends Component {
         const redirect  = this.state.redirect;
         if (redirect) {
             return <Redirect to={`/profile/${this.props.token}`}/>;
-            // no esta redireccionando, quizas sea la validacion en Profile (pero estoy mandando token valido)
         } else {         
             return ( <div className="text-center">
 
@@ -112,7 +110,8 @@ class LoginForm extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        token: state.userReducer.token
+        token: state.userReducer.token,
+        success: state.userReducer.user.success
     }
 }
 

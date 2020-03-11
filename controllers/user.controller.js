@@ -56,11 +56,12 @@ const registerUser = (req, res) => {
 const loginUser = (req, res) => {
     User.findOne({username: req.body.userData.username})
     .then((user)=> {
-        if (user==null) {//if user don't exist
-            //por esta validacion pasa ok
-            return res.status(402).send('Enter a valid username'); 
-        } else { //if user exists, compare pass with hash
-            if (bcrypt.compareSync(req.body.userData.password, user.password)) { //if true
+        if (user===null) {     //if user doesn't exist
+            return res.json ({
+                success: false,
+            }).status(403)
+        } else {  //if user exists, compare pass with hash
+            if (bcrypt.compareSync(req.body.userData.password, user.password)) { //if pass ok
                 const payload = {
                     success: true,
                     id: user.id,
@@ -68,19 +69,18 @@ const loginUser = (req, res) => {
                     avatarPicture: user.avatarPath
                 };
                 const options = {expiresIn: 2592000};
-                jwt.sign(
+                jwt.sign( // then generate token with payload
                     payload,
                     key.secretOrKey,
                     options,
                     (err, token) => {
-                        if(err){
-                            console.log('error de token')
+                        if(err){ //if error
                             return res.json({
                                 user: payload,
                                 success: false,
                                 token: "There was an error"
                         });
-                        }else {
+                        }else { //if token generation ok
                             return res.json({
                                 user: payload,
                                 success: true,
@@ -89,9 +89,10 @@ const loginUser = (req, res) => {
                         }
                     }
                 )
-            } else {
-                //esto funciona!!
-                return res.status(402).send({message: "wrong password"}); 
+            } else { // if wrong password
+                return res.json ({
+                    success: false,
+                }).status(403) 
             }
         }      
     })
@@ -99,6 +100,7 @@ const loginUser = (req, res) => {
         res.json(err).status(500)
     }) 
 }  
+
 //local login get user data
 const getUserData = (req, res) => {
     userModel
@@ -106,10 +108,10 @@ const getUserData = (req, res) => {
       .then(user => {
         res.json(user);
       })
-      .catch(err => res.status(404).json({ error: "User does not exist!" }));
+      .catch(err => res.status(404).json({ err }));
   }
 
-  //login user data w google
+//login user data w google
 const userRedirect = (req, res) => {
     const payload = {
         id: req.user.id,
@@ -122,25 +124,25 @@ const userRedirect = (req, res) => {
     const options = {expiresIn: 2000};
     
     jwt.sign(
-    payload,
-    key.secretOrKey,
-    options,
-    (err, token) => {
-        if(err || token == undefined)  {
-         return res.json({
-            payload:payload,
-            success: false,
-            token: "There was an error",
-        });
-        }else {
-            // res.json({
-            // payload: payload,
-            // success: true,
-            // token: token});
-            // console.log('login google back ok')
-            res.redirect(`http://localhost:3000/profile/${token}`) 
+        payload,
+        key.secretOrKey,
+        options,
+        (err, token) => {
+            if(err || token === undefined)  {
+                return res.json({
+                    payload:payload,
+                    success: false,
+                    token: "There was an error",
+                });
+            }else {
+                // res.json({
+                // payload: payload,
+                // success: true,
+                // token: token});
+                // console.log('login google back ok')
+                res.redirect(`http://localhost:3000/profile/${token}`) 
+            }
         }
-    }
     )
 };
 
