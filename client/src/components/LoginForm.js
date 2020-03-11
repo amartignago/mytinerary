@@ -75,13 +75,13 @@ class LoginForm extends Component {
                                 onChange={this.handleInputChange} />
                         </Col>
                     </Form.Group> 
-                    <Form.Group as={Row} controlId="password" className="inlineForm">
+                    <Form.Group as={Row} controlId="password"  className="inlineForm">
                         <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">Password:</span></Form.Label>
                         <Col xs={8}>
                             <input
                                 className="col-xs-4 text-right"
                                 name="password"
-                                type="text"
+                                type="password"
                                 value={this.state.password}
                                 onChange={this.handleInputChange} />
                         </Col>

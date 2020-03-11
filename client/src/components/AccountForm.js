@@ -38,7 +38,6 @@ class AccountForm extends Component {
         if (this.props.success) {
             //manejar la respuesta para que redirija solo si lo creo ok
             this.setState({redirect: true })
-            console.log("success!")
         } 
       }
   
@@ -126,7 +125,7 @@ class AccountForm extends Component {
                                 <input
                                     className="col-xs-4 text-left itinText"
                                     name="password"
-                                    type="text"
+                                    type="password"
                                     value={this.state.password}
                                     onChange={this.handleInputChange} />
                             </Col>
