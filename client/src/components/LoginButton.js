@@ -4,6 +4,8 @@ import {Link} from "react-router-dom";
 
 const now = new Date().toLocaleString("es-AR")
 
+//This button is NOT the login button inside the login form, is the login NAV button
+
 class LoginButton extends Component {
     constructor(props) {
         super(props)

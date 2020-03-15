@@ -7,6 +7,9 @@ import '../styles/App.css'
 import {fetchLogin} from '../actions/usersActions';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router-dom'
+import LoginFailureModal from './LoginFailureModal.js';
+
+
 
 class LoginForm extends Component {
     constructor(props) {
@@ -15,9 +18,11 @@ class LoginForm extends Component {
           username:"",
           password:"",
           remember:false,
-          redirect: false
+          redirect: false,
+          loginFailure: false
         };
 
+        
         this.loginUser = this.loginUser.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
 
@@ -30,7 +35,12 @@ class LoginForm extends Component {
                 this.setState({
                     redirect: true
                 })    
-            }        
+            } else {
+                this.setState({
+                    loginFailure: true
+                    //esto funciona
+                })
+            } 
       }
   
 
@@ -56,36 +66,40 @@ class LoginForm extends Component {
     }
 
     render() { 
+        const loginFailure = this.state.loginFailure;
         const redirect  = this.state.redirect;
+
         if (redirect) {
             return <Redirect to={`/profile/${this.props.token}`}/>;
-        } else {         
+        } else {   
             return ( <div className="text-center">
-
                 <h3 className="mb-5">Login</h3>
                 <Form className="w-100" onSubmit={(e)=>{this.handleForm(e)}}> 
+                {/* Username: */}
                     <Form.Group as={Row} controlId="username" className="inlineForm">
                         <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">Username:</span></Form.Label>
-                        <Col xs={8}>
-                            <input
-                                className="col-xs-4 text-right"
-                                name="username"
-                                type="text"
-                                value={this.state.username}
-                                onChange={this.handleInputChange} />
-                        </Col>
+                            <Col xs={8}>
+                                <input
+                                    className="col-xs-4 text-right"
+                                    name="username"
+                                    type="text"
+                                    value={this.state.username}
+                                    onChange={this.handleInputChange} />
+                            </Col>
                     </Form.Group> 
+                {/* Password: */}
                     <Form.Group as={Row} controlId="password"  className="inlineForm">
                         <Form.Label column xs={3} className="ml-3"><span className="itinText font-weight-bold">Password:</span></Form.Label>
-                        <Col xs={8}>
-                            <input
-                                className="col-xs-4 text-right"
-                                name="password"
-                                type="password"
-                                value={this.state.password}
-                                onChange={this.handleInputChange} />
-                        </Col>
+                            <Col xs={8}>
+                                <input
+                                    className="col-xs-4 text-right"
+                                    name="password"
+                                    type="password"
+                                    value={this.state.password}
+                                    onChange={this.handleInputChange} />
+                            </Col>
                     </Form.Group>
+                {/* Remember Me: */}    
                     <Form.Group>
                         <input
                             className="col-xs-4 text-right"
@@ -97,16 +111,19 @@ class LoginForm extends Component {
                             <span className="itinText">Remember Me</span>
                         </Form.Label>
                     </Form.Group>   
+                {/* Submit Button: */}
                     <Button variant="secondary" type="submit" name="submitBtn">
                         OK
                     </Button>
-                    
+                {/*   Login Failure component: */}
+                    <LoginFailureModal loginFailure={loginFailure}></LoginFailureModal>
                 </Form>
-                </div>
-            );
-        }    
-    }
+            </div>
+            )
+        }   
+    }    
 }
+
 
 const mapStateToProps = (state) => {
     return {

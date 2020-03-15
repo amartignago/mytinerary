@@ -11,10 +11,10 @@ class Login extends Component {
         
         <LoginForm></LoginForm>
 
-        <div className="text-center mt-4">
-            <a  href="http://localhost:5000/auth/google" className="text-center">Login with Google</a> 
+        <div className="text-center mt-4 mb-4">
+            <a  href="http://localhost:5000/auth/google" className="text-center mb-2">Login with Google</a> 
             <p className="m-4">Don't have a Mytinerary Account yet? You should create one! It's totally free and only takes a minute.</p>
-            <Link to="/account">Create Account</Link>
+            <Link to="/account" className="mt-4">Create Account</Link>
         </div>
     </div>
 );
