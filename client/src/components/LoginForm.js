@@ -21,8 +21,6 @@ class LoginForm extends Component {
           redirect: false,
           loginFailure: false
         };
-
-        
         this.loginUser = this.loginUser.bind(this);
         this.handleInputChange = this.handleInputChange.bind(this);
 

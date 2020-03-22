@@ -13,6 +13,7 @@
   "author": "amartignago",
   "license": "ISC",
   "devDependencies": {
+    "eslint-plugin-react-hooks": "^2.5.1",
     "nodemon": "^1.19.4"
   },
   "dependencies": {

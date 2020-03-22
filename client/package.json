@@ -25,7 +25,11 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app", 
+      "plugin:react-hooks/recommended" 
+    ]
+    
   },
   "browserslist": {
     "production": [
@@ -41,6 +45,7 @@
   },
   "devDependencies": {
     "enzyme": "^3.10.0",
-    "enzyme-adapter-react-16": "^1.15.1"
+    "enzyme-adapter-react-16": "^1.15.1",
+    "eslint-plugin-react-hooks": "^2.5.1"
   }
 }
