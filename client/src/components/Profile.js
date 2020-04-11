@@ -29,7 +29,7 @@ class Profile extends Component {
     
   
     decodeToken = (token) => {
-        if (token == undefined) {
+        if (token === undefined) {
             console.log('token is undefined')
            
         } else {
@@ -73,7 +73,7 @@ class Profile extends Component {
                 // set user image
                 //1. default user image:
                 let imageToRender = `${urlImages.urlImages}/images/users/default-avatar.png` 
-                if (decodedImage==null || decodedImage==undefined ) {
+                if (decodedImage===null || decodedImage===undefined ) {
                     //2. avoid nulls & undefined:
                     imageToRender = imageToRender
                 } else if  (decodedImage && decodedImage.toLowerCase().startsWith("images")) {

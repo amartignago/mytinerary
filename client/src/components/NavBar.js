@@ -17,11 +17,6 @@ class NavBar extends Component {
         
     }
   }
-
-
-  
-
-
     render() { return (
       
       <div className="ml-4 mr-4 mb-4 mt-0 pt-4">

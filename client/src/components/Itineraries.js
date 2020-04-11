@@ -83,7 +83,7 @@ class Itineraries extends Component {
                         {/* activities & collapse button: */}
                         <div className="row col-xs-12 ml-0 pl-0 pr-0 mr-0 d-inline-block container-fluid">
                             <button id={itinerary._id} className="btn btn-light btn-block" onClick={()=>{this.toggle(itinerary._id)}}>View All</button>
-                            <Expand open={this.state.open==itinerary._id && this.state.clicked==true}>            
+                            <Expand open={this.state.open===itinerary._id && this.state.clicked===true}>            
                                 <Activities activities={activities}></Activities>
                                 <button id={itinerary._id} className="btn btn-light btn-block" onClick={()=>{this.toggle()}}>Close</button> 
                             </Expand>

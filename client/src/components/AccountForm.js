@@ -66,11 +66,11 @@ class AccountForm extends Component {
     handleForm(e){
         if(
             !this.state.terms ||
-            this.state.username =="" ||
-            this.state.password =="" ||
-            this.state.email =="" ||
-            this.state.firstName =="" ||
-            this.state.lastName =="" 
+            this.state.username ==="" ||
+            this.state.password ==="" ||
+            this.state.email ==="" ||
+            this.state.firstName ==="" ||
+            this.state.lastName ==="" 
         ){
             e.preventDefault()
         }

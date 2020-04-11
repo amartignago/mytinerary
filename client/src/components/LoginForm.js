@@ -7,8 +7,7 @@ import '../styles/App.css'
 import {fetchLogin} from '../actions/usersActions';
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router-dom'
-import LoginFailureModal from './LoginFailureModal.js';
-
+import LoginFailureModalHooks from './LoginFailureModalHooks.js';
 
 
 class LoginForm extends Component {
@@ -28,20 +27,27 @@ class LoginForm extends Component {
   
 
     async loginUser() {
+        // Initialize loginFailure so it updates correctly in case of login failure. 
+        // If not, children props would change to "true" only in the first failure, 
+        // and the error modal would show only the first time
+        this.setState({
+            loginFailure: false 
+        })
+
         await this.props.dispatch(fetchLogin(this.state));
-            if (this.props.success) { //
+            if (this.props.success) { 
                 this.setState({
                     redirect: true
                 })    
             } else {
                 this.setState({
-                    loginFailure: true
-                    //esto funciona
+                    loginFailure: true,
+                    username:"",
+                    password:""
                 })
             } 
       }
   
-
     handleInputChange(event) {
       const target = event.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -54,8 +60,8 @@ class LoginForm extends Component {
 
      handleForm(e){
             if(
-                this.state.username =="" ||
-                this.state.password =="" 
+                this.state.username ==="" ||
+                this.state.password ==="" 
             ){
                 e.preventDefault()
             }
@@ -114,7 +120,7 @@ class LoginForm extends Component {
                         OK
                     </Button>
                 {/*   Login Failure component: */}
-                    <LoginFailureModal loginFailure={loginFailure}></LoginFailureModal>
+                    <LoginFailureModalHooks loginFailure={loginFailure}></LoginFailureModalHooks>
                 </Form>
             </div>
             )

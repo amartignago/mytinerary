@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import CitiesFilter from './CitiesFilter.js';
 import {fetchCities} from '../actions/citiesActions';
 import PropTypes from 'prop-types';
+import CitiesFilterHooks from './CitiesFilterHooks.js';
 
 
 class Cities extends Component {
@@ -22,22 +23,20 @@ class Cities extends Component {
        .then(() => console.log('hola, funciono!'))
     }
 
-render() { 
-    const cities = this.props.cities
-
-    return ( <div className="container">
-        <NavBar/>
-        <div className="text-center">
-            <h1 className="h1Title mb-4">Find your City!</h1>
-            <div>
-            <CitiesFilter cities = {cities}/>
+    render() { 
+        const cities = this.props.cities
+        return ( <div className="container">
+            <NavBar/>
+            <div className="text-center">
+                <h1 className="h1Title mb-4">Find your City!</h1>
+                <div>
+                    <CitiesFilter cities = {cities}/>
+                </div>
             </div>
         </div>
-</div>
- )}
+    )}
 
 }
-
 
 const mapStateToProps = (state) => { // state del storage como props para ESTE componente
     return {
