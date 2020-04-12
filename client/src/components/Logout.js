@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import '../styles/App.css'
 import {Redirect} from "react-router-dom";
+import {userLogout} from '../actions/usersActions';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
 
 class Logout extends Component {
@@ -10,15 +13,19 @@ class Logout extends Component {
             navigate: false
         }
     }
+    static propTypes = {
+        dispatch: PropTypes.func,
+        };
+
 
     logout=()=>{
         localStorage.clear();
+        this.props.dispatch(userLogout());
         this.setState({navigate:true})
     }
 
     render() { 
         const {navigate} = this.state;
-
         if (navigate) {
             return <Redirect to="/" push={true}/>;
         } else {
@@ -27,4 +34,10 @@ class Logout extends Component {
     }
 }
 
-export default Logout;
+const mapStateToProps = (state) => {
+    return {
+        user: state.userReducer
+    }
+}
+
+export default connect(mapStateToProps)(Logout); 

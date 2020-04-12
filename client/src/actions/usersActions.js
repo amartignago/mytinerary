@@ -34,6 +34,13 @@ export function storeUserFavs(userData) { //stores token and decoded token user 
 }
 
 
+export const USER_LOGOUT = 'USER_LOGOUT'
+export function userLogout() {  
+  return {
+      type: USER_LOGOUT,
+  }
+}
+
 //register user action
 export function fetchNewUser (userData) {
   return dispatch => {   

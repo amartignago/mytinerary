@@ -1,4 +1,4 @@
-import {SEND_USER, REQUEST_USER, STORE_TOKEN_USER, STORE_USER_FAVS} from '../actions/usersActions'
+import {SEND_USER, REQUEST_USER, STORE_TOKEN_USER, STORE_USER_FAVS, USER_LOGOUT} from '../actions/usersActions'
 
 const initState= {
   isFetching: false,
@@ -33,6 +33,15 @@ function userReducer(state = initState, action
           isFetching: false,
           userFavs: action.userData
         })
+      case USER_LOGOUT:
+        return Object.assign({}, state, {
+            isFetching: false,
+            user:{},
+            userFavs: [],
+            token: "",
+            error: false
+        }) 
+      //Deberia usar undefined pq estoy seteando mi init state, ver bien la sintaxis
       default:
         return state
     }
