@@ -25,7 +25,7 @@
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "jwt-decode": "^2.2.0",
     "material-icons-react": "^1.0.4",
     "mdbreact": "^4.22.1",
